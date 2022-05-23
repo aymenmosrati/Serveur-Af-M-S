@@ -1,52 +1,71 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import axios from "axios";
-import { URL } from "../../../constant/Constant"
-import { useParams } from 'react-router-dom';
+import { URL } from "../../../constant/Constant";
 
-
-export default function AddChapitre(props) {
-    const { handleClose, show } = props.data;
-    const [alert, setalert ] = useState(true);
-    const parames =useParams();
-    const [Chpitre, setChpitre] = useState({
+export default function ModalViewUpdate(props) {
+    const { up_chap, handleClose, show, setup_chap } = props.data;
+    const [alert, setAlert] = useState(true);
+    const [formData, setFormData] = useState({
         Chapitres: "",
-        NormeId:`${parames.id}`, 
     });
+
     const handleChange = (e) => {
-        setChpitre({
-            ...Chpitre,
+        setFormData({
+            ...formData,
             [e.target.name]: e.target.value,
         });
+
+    };
+    // console.log(up_chap);
+
+    useEffect(() => {
+        if (!!up_chap?.id) {
+            axios.get(`${URL}/getbyId_Chapitres/${up_chap.id}`)
+                .then(function (response) {
+                    // setFormData(
+                    //     {
+                    //         Chapitres: response.data.Chapitres,
+                    //     });
+                    console.log(response)
+                });
+        }
+
+    }, [up_chap]);
+
+    const handelClick = (e, id) => {
+        e.preventDefault();
+
+        if (formData.Chapitres === "") {
+            setAlert(false);
+            return null;
+        }
+        // console.log(formData);
+        axios.patch(`${URL}/update_Chapitres/${up_chap.id}`, formData)
+            .then(function (response) {
+                setAlert(true);
+                setFormData({
+                    Chapitres: "",
+                })
+                window.location.reload(false);
+                // console.log(response);
+                setup_chap([]);
+                handleClose();
+            });
     };
 
-    const handelClick = (e) => {
-        // console.log(Chpitre);
-        e.preventDefault();
-        if (Chpitre.Chapitres == "") {
-            setalert(false);
-            return null;  
-        }
-        axios.post(`${URL}/ajoute_chapitres`, Chpitre)
-            .then(function (response) {
-                setChpitre({
-                    Chapitres: "",
-                });
-                handleClose();
-                window.location.reload(false)
-            })
-    };
+
 
     return (
         <div className="model_box">
             <Modal
                 show={show}
-                onHide={(e) => { handleClose(e); setChpitre({ Chapitres: "" }); setalert(true); }}
+                onHide={(e) => { handleClose(e); setAlert(true); setFormData({ Chapitres: "" }); }}
                 backdrop="static"
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Chapitre</Modal.Title>
+                    <Modal.Title>Update Chapitre </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {alert === false &&
@@ -63,26 +82,26 @@ export default function AddChapitre(props) {
                                 name="Chapitres"
                                 aria-describedby="name"
                                 placeholder="Enter Name"
-                                // value={Chpitre.Chapitres}
+                                value={formData.Chapitres}
                                 onChange={handleChange}
                                 required
                             />
                         </div>
+
                         <Button
                             type="submit"
                             className="btn btn-success mt-4"
                             onClick={(e) => {
-                                handelClick(e)
+                                handelClick(e, up_chap.id)
                             }}
                         >
-                            Add Chapitre
+                            Update Chapitre
                         </Button>
                     </form>
-
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={(e) => { handleClose(e); setChpitre({ Chapitres: "" }); setalert(true); }}>
+                    <Button variant="secondary" onClick={(e) => { handleClose(e); setAlert(true); setFormData({ Chapitres: "" }); }}>
                         Close
                     </Button>
 

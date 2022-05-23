@@ -18,6 +18,7 @@ import Norme from "./pages/create_project/norme/Norme";
 import Chapitre from "./pages/create_project/chapitre/Chapitre";
 import Article from "./pages/create_project/article/Article";
 import Question from "./pages/create_project/question/Question";
+import Projet from "./pages/projet/Projet"
 
 import { productInputs, userInputs } from "./formSource";
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/chapitres/:id" element={<Chapitre />}/>
           <Route path="/articles/:id" element={<Article />} />
           <Route path="/questions/:id" element={<Question />} />
+          <Route path="/projets" element={<Projet />}/>
         </Routes>
       </BrowserRouter>
     </div>

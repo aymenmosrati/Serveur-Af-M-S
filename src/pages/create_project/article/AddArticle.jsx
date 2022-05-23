@@ -2,11 +2,15 @@ import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import axios from "axios";
 import { URL } from "../../../constant/Constant"
+import { useParams } from 'react-router-dom';
 
 export default function AddArticle(props) {
     const { handleClose, show } = props.data;
+    const [alert, setalert ] = useState(true);
+    const params = useParams();
     const [Article, setArticle] = useState({
-        article: "",
+        Articles: "",
+        ChapitreId: `${params.id}`
     });
     const handleChange = (e) => {
         setArticle({
@@ -17,13 +21,14 @@ export default function AddArticle(props) {
 
     const handelClick = (e) => {
         e.preventDefault();
-        if (Article.article == "") {
+        if (Article.Articles == "") {
+            setalert(false);
             return null;
         }
         axios.post(`${URL}/ajoute_article`, Article)
             .then(function (response) {
                 setArticle({
-                    article: "",
+                    Articles: "",
                 });
                 handleClose();
                 window.location.reload(false)
@@ -34,7 +39,7 @@ export default function AddArticle(props) {
         <div className="model_box">
             <Modal
                 show={show}
-                onHide={(e) => { handleClose(e); setArticle({ article: "" }); }}
+                onHide={(e) => { handleClose(e); setArticle({ Articles: "" }); setalert(true); }}
                 backdrop="static"
                 keyboard={false}
             >
@@ -52,11 +57,11 @@ export default function AddArticle(props) {
                             <input
                                 type="text"
                                 className="form-control"
-                                id="Article"
-                                name="Article"
+                                id="Articles"
+                                name="Articles"
                                 aria-describedby="name"
                                 placeholder="Enter Name"
-                                value={Article.article}
+                                value={Article.Articles}
                                 onChange={handleChange}
                                 required
                             />
@@ -75,7 +80,7 @@ export default function AddArticle(props) {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={(e) => { handleClose(e); setArticle({ article: "" }); }}>
+                    <Button variant="secondary" onClick={(e) => { handleClose(e); setArticle({ Articles: "" }); setalert(true); }}>
                         Close
                     </Button>
 

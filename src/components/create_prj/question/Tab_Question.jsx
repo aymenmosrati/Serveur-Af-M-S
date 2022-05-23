@@ -8,19 +8,32 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { URL } from "../../../constant/Constant"
+import { URL } from "../../../constant/Constant";
+import { useState } from "react";
 
 const Tab_Question = (props) => {
   const { Questions } = props.data;
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [up_nor, setup_nor] = useState();
   // console.log(Questions);
   const deleteQuestion = (id) => {
     axios.delete(`${URL}/delete_question/${id}`)
       .then((response) => {
-         window.location.reload(false)
+        window.location.reload(false)
       })
       .catch((error) => { console.log(error) })
   };
-
+  const getbyidNorme = (id) => {
+    axios.get(`${URL}/getbyId_norme/${id}`)
+      .then(function (response) {
+        // console.log(response)
+        setup_nor(response.data);
+        handleShow();
+      });
+  }
+  // console.log(Questions);
   return (
 
     <TableContainer component={Paper} className="table">
@@ -42,10 +55,16 @@ const Tab_Question = (props) => {
 
               <TableCell className="tableCell">
                 <div className="cellAction">
-                  <Link to={`/questions/${question.id}`} style={{ textDecoration: "none" }}>
+                  {/* <Link to={`/questions/${question.id}`} style={{ textDecoration: "none" }}>
                     <div className="viewButton">View</div>
-                  </Link>
-                  <div 
+                  </Link> */}
+                  <div
+                    className="updateButton"
+                    onClick={() => getbyidNorme(question.id)}
+                  >
+                    Update
+                  </div>
+                  <div
                     className="deleteButton"
                     onClick={() => deleteQuestion(question.id)}
                   >

@@ -67,9 +67,8 @@ const Sidebar = () => {
             </li>
           </Link>
 
-
           <p className="title">SERVICE</p>
-          <Link to="/notifications" style={{ textDecoration: "none" }}>
+          <Link to="/projets" style={{ textDecoration: "none" }}>
             <li>
               <SettingsSystemDaydreamOutlinedIcon className="icon" />
               <span> Project </span>

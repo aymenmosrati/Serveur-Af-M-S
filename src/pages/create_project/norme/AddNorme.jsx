@@ -37,7 +37,7 @@ export default function AddNorme(props) {
         <div className="model_box">
             <Modal
                 show={show}
-                onHide={(e) => { handleClose(e); setNorme({ norme: "" }); }}
+                onHide={(e) => { handleClose(e); setNorme({ norme: "" }); setalert(true); }}
                 backdrop="static"
                 keyboard={false}
             >
@@ -78,7 +78,7 @@ export default function AddNorme(props) {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={(e) => { handleClose(e); setNorme({ norme: "" }); }}>
+                    <Button variant="secondary" onClick={(e) => { handleClose(e); setNorme({ norme: "" }); setalert(true); }}>
                         Close
                     </Button>
 
