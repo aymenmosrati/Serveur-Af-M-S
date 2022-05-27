@@ -12,10 +12,11 @@ import {URL} from "../../../constant/Constant"
 const Single_entreprise = () => {
 
   const parames = useParams();
-  const [user, setUser] = useState([]);
-  useEffect((user) => {
+  const [Entreprise, setEntreprise] = useState([]);
+  useEffect((Entreprise) => {
     axios.get(`${URL}/getbyId_entreprise/${parames.id}`).then(function (res) {
-      setUser(res.data);
+      setEntreprise(res.data);
+      // console.log(res.data)
     });
   }, [])
   
@@ -35,39 +36,39 @@ const Single_entreprise = () => {
                 className="itemImg"
               /> */}
               <div className="details">
-                <h1 className="itemTitle">{user.username}</h1>
+                <h1 className="itemTitle">{Entreprise.username}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
-                  <span className="itemValue">{user.email}</span>
+                  <span className="itemValue">{Entreprise.email}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+216 {user.telephone}</span>
+                  <span className="itemValue">+216 {Entreprise.telephone}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Address:</span>
                   <span className="itemValue">
-                   {user.adress}
+                   {Entreprise.adress}
                   </span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Contact:</span>
-                  <span className="itemValue">{user?.subInfo?.contact}</span>
+                  <span className="itemValue">{Entreprise?.subInfo?.contact}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Mobile:</span>
-                  <span className="itemValue">+216 {user?.subInfo?.mobile}</span>
+                  <span className="itemValue">+216 {Entreprise?.subInfo?.mobile}</span>
                 </div>
               </div>
             </div>
           </div>
           {/* <div className="right">
-            <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
+            <Chart aspect={3 / 1} title="Entreprise Spending ( Last 6 Months)" />
           </div> */}
         </div>
         <div className="bottom">
         <h1 className="title">Last Transactions</h1>
-          <List  data={{user : user.id}}/>
+          <List  data={{Entreprise : Entreprise.id}}/>
         </div>
       </div>
     </div>

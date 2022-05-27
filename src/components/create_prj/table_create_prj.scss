@@ -13,7 +13,11 @@
       border: 1px dotted rgba(0, 0, 139, 0.596);
       cursor: pointer;
     }
-    
+    .viewButton:hover{
+      background-color: rgba(2, 2, 90, 0.596);
+      color: rgb(255, 255, 255);
+      // border: 2px rgba(2, 2, 90, 0.596);
+    }
     .deleteButton {
       padding: 2px 5px;
       border-radius: 5px;
@@ -21,12 +25,23 @@
       border: 1px dotted rgba(220, 20, 60, 0.6);
       cursor: pointer;
     }
+    .deleteButton:hover{
+      background-color:rgb(228, 86, 86);
+      color: rgb(255, 255, 255);
+      // border: 2px dotted rgb(228, 86, 86);
+    }
+
     .updateButton{
       padding: 2px 5px;
       border-radius: 5px;
       color: rgb(81, 31, 219);
       border: 1px dotted rgba(1, 1, 214);
       cursor: pointer;
+    }
+    .updateButton:hover{
+      background-color:rgb(55, 55, 180);
+      color: rgb(255, 255, 255);
+      // border: 2px dotted rgb(55, 55, 180);
     }
   }
 }

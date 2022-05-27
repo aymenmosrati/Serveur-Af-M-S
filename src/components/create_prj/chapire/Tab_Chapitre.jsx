@@ -11,6 +11,7 @@ import axios from "axios";
 import { URL } from "../../../constant/Constant"
 import { useState } from "react";
 import UpdateChapitre from "../../../pages/create_project/chapitre/UpdateChapitre";
+import { Button, Modal } from 'react-bootstrap';
 
 
 const Tab_Chapitre = (props) => {
@@ -19,9 +20,19 @@ const Tab_Chapitre = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [up_chap, setup_chap] = useState();
+
+  const [open, setOpen] = useState(false);
+  const [id_C , setId_C] = useState();
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setId_C(id);
+  };
+  const handleClickClose = () => {
+    setOpen(false);
+  };
   
-  const deleteChapitre = (id) => {
-    axios.delete(`${URL}/delete_chapitre/${id}`)
+  const deleteChapitre = () => {
+    axios.delete(`${URL}/delete_chapitre/${id_C}`)
       .then((response) => {
         window.location.reload(false)
       })
@@ -69,7 +80,7 @@ const Tab_Chapitre = (props) => {
                     </div>
                     <div
                       className="deleteButton"
-                      onClick={() => deleteChapitre(chapitre.id)}
+                      onClick={() => handleClickOpen(chapitre.id)}
                     >
                       Delete
                     </div>
@@ -80,6 +91,20 @@ const Tab_Chapitre = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Modal show={open} onHide={handleClickClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><div className="alert alert-danger">are you sure you want to delete this?</div></Modal.Body>
+        <Modal.Footer>
+          <Button variant="default" onClick={handleClickClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => deleteChapitre() }>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

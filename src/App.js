@@ -19,6 +19,7 @@ import Chapitre from "./pages/create_project/chapitre/Chapitre";
 import Article from "./pages/create_project/article/Article";
 import Question from "./pages/create_project/question/Question";
 import Projet from "./pages/projet/Projet"
+import Add_Prj from "./pages/projet/Add_Prj"
 
 import { productInputs, userInputs } from "./formSource";
 
@@ -41,6 +42,7 @@ function App() {
           <Route path="/articles/:id" element={<Article />} />
           <Route path="/questions/:id" element={<Question />} />
           <Route path="/projets" element={<Projet />}/>
+          <Route path="/ajoute_projet/:id/:name" element={<Add_Prj />}/>
         </Routes>
       </BrowserRouter>
     </div>

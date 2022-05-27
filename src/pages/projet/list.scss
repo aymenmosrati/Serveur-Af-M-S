@@ -6,8 +6,37 @@
     .listContainer {
       -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-      padding: 20px;
+      padding: 30px;
       margin: 20px;
+      p{
+        text-align: center;
+        background-color: rgb(184, 248, 248);
+      }
+      .prj{
+        padding-top: 40px;
+        margin-left: 130px;
+        .date{
+          margin-left: 35px;
+        }
+        .form_selc{
+          margin-left:10px;
+          margin-top: 20px;
+        }
+      }
+      .btn_prj{
+        margin-left: 370px;
+        .send_prj{
+          width: 150px;
+          padding: 10px;
+          border: none;
+          background-color: teal;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 10px;
+        }
+      }
+     
     }
       .listTitle{
         width: 100%;
@@ -29,5 +58,8 @@
           cursor: pointer;
         }
       }
+  }
+  b{
+    color: red;
   }
 }

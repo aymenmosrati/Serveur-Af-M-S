@@ -11,6 +11,8 @@ import axios from "axios";
 import { URL } from "../../../constant/Constant"
 import UpdateNorme from "../../../pages/create_project/norme/UpdateNorme";
 import { useState } from "react";
+import { Button, Modal } from 'react-bootstrap';
+
 
 const Tab_Norme = (props) => {
   const { normes } = props.data;
@@ -19,8 +21,18 @@ const Tab_Norme = (props) => {
   const handleShow = () => setShow(true);
   const [up_nor, setup_nor] = useState();
   // console.log(normes);
-  const deleteNorme = (id) => {
-    axios.delete(`${URL}/delete_norme/${id}`)
+  const [open, setOpen] = useState(false);
+  const [id_N , setId_N] = useState();
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setId_N(id);
+  };
+  const handleClickClose = () => {
+    setOpen(false);
+  };
+
+  const deleteNorme = () => {
+    axios.delete(`${URL}/delete_norme/${id_N}`)
       .then((response) => {
         window.location.reload(false)
       })
@@ -67,7 +79,7 @@ const Tab_Norme = (props) => {
                     </div>
                     <div
                       className="deleteButton"
-                      onClick={() => deleteNorme(norme.id)}
+                      onClick={() => handleClickOpen(norme.id)}
                     >
                       Delete
                     </div>
@@ -78,6 +90,21 @@ const Tab_Norme = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Modal show={open} onHide={handleClickClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><div className="alert alert-danger">are you sure you want to delete this?</div></Modal.Body>
+        <Modal.Footer>
+          <Button variant="default" onClick={handleClickClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => deleteNorme() }>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

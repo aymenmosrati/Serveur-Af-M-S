@@ -4,12 +4,19 @@ import Navbar from "../../../components/navbar/Navbar";
 import { useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import axios from "axios";
-import {URL} from "../../../constant/Constant"
-import {useNavigate} from 'react-router-dom';
+import { URL } from "../../../constant/Constant"
+import { useNavigate } from 'react-router-dom';
+import validator from 'validator'
 
 const New_Consultant = ({ title }) => {
 
   const [alert, setAlert] = useState(true);
+  const [alertuser, setAlertuser] = useState(true);
+  const [alerttlf, setAlerttlf] = useState(true);
+  const [alertemail, setAlertemail] = useState(true);
+  const [alertemaildispo, setAlertemaildispo] = useState(true);
+  const [alertpass, setAlertpass] = useState(true);
+  const [alertadss, setAlertadss] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
     telephone: "",
@@ -30,23 +37,83 @@ const New_Consultant = ({ title }) => {
     e.preventDefault();
     if (formData.username === "" || formData.telephone === "" || formData.email === "" || formData.password === "" || formData.adress === "") {
       setAlert(false);
+      setAlertuser(true);
+      setAlerttlf(true);
+      setAlertemail(true);
+      setAlertpass(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (formData.username.length < 3 || formData.username.length > 50) {
+      setAlertuser(false);
+      setAlert(true);
+      setAlerttlf(true);
+      setAlertemail(true);
+      setAlertpass(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (formData.telephone.length < 8 || formData.telephone.length > 8) {
+      setAlerttlf(false);
+      setAlert(true);
+      setAlertuser(true);
+      setAlertemail(true);
+      setAlertpass(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (!(validator.isEmail(formData.email))) {
+      setAlertemail(false);
+      setAlerttlf(true);
+      setAlert(true);
+      setAlertuser(true);
+      setAlertpass(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (formData.password.length < 8 || formData.password.length > 50) {
+      setAlertpass(false);
+      setAlert(true);
+      setAlertuser(true);
+      setAlerttlf(true);
+      setAlertemail(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (formData.adress.length < 3 || formData.adress.length > 30) {
+      setAlertadss(false);
+      setAlertpass(true);
+      setAlert(true);
+      setAlertuser(true);
+      setAlerttlf(true);
+      setAlertemail(true);
+      setAlertemaildispo(true);
       return null;
     }
-    axios.post(`${URL}/register_consultant`, formData)
-      .then(function (response) {
-        setAlert(true);
-        setFormData({
-          username: "",
-          telephone: "",
-          email: "",
-          password: "",
-          adress: "",
-        });
-        // console.log(response);
-        navigate('/consultant')
-      })
+     else {
+      axios.post(`${URL}/register_consultant`, formData)
+        .then(function (response) {
+          setAlert(true);
+          setFormData({
+            username: "",
+            telephone: "",
+            email: "",
+            password: "",
+            adress: "",
+          });
+          // console.log(response);
+          navigate('/consultant')
+        }).catch((err) => {
+          setAlertemaildispo(false);
+          setAlert(true);
+          setAlertuser(true);
+          setAlerttlf(true);
+          setAlertemail(true);
+          setAlertpass(true);
+          setAlertadss(true);
+        })
+    }
   }
-
   return (
     <div className="new">
       <Sidebar />
@@ -59,7 +126,7 @@ const New_Consultant = ({ title }) => {
           <div className="right">
             <form>
               <div className="formInput">
-                <label>username <b>*</b></label>
+                <label>User Name <b>*</b></label>
                 <input type="text" placeholder="UserName Consultant" name="username" value={formData.username}
                   onChange={handleChange} />
               </div>
@@ -88,7 +155,43 @@ const New_Consultant = ({ title }) => {
               {
                 alert === false &&
                 <div className="alert alert-danger messerr" role="alert">
-                  <b>*</b>  : required fields
+                  <b>*</b>  : Required fields
+                </div>
+              }
+              {
+                alertuser === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  UserName required min 3 caracter and max 50 caracter .
+                </div>
+              }
+              {
+                alerttlf === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  Phone required 6 number .
+                </div>
+              }
+              {
+                alertemail === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  is not Email .
+                </div>
+              }
+              {
+                alertemaildispo === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  This email is used .
+                </div>
+              }
+              {
+                alertpass === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  Password required minimum 8 caracter and maximum 50 caracter  .
+                </div>
+              }
+              {
+                alertadss === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  Adress required minimum 3 caracter and maximum 30 caracter  .
                 </div>
               }
               <div>

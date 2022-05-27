@@ -1,22 +1,41 @@
 import "./datatable.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import {URL} from "../../constant/Constant"
+import { URL } from "../../constant/Constant"
+import { useState } from "react"
+import { Button, Modal } from 'react-bootstrap';
+
 
 const Datatable_consultant = (props) => {
 
-  const { users, setUsers } = props.data;
+  const { users, setUsers, consultant } = props.data;
+
   // console.log(users.length);
   // const navgite = useNavigate();
 
-  const deleteConsultant = (id) => {
-    axios.delete(`${URL}/delete_user/${id}`)
+  const [open, setOpen] = useState(false);
+  const [id_C, setId_C] = useState();
+
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setId_C(id);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const deleteConsultant = () => {
+    axios.delete(`${URL}/delete_user/${id_C}`)
       .then((response) => {
         window.location.reload(false)
       })
-      .catch((error) => { console.log(error) })
+      .catch((error) => { 
+        // console.log(error)
+       })
   };
+
+  let index = 0;
 
   return (
     <div className="datatable">
@@ -45,12 +64,12 @@ const Datatable_consultant = (props) => {
               <td>{users[0]?.telephone}</td>
               <td>
                 <div className="cellAction">
-                  <Link to={`/user_consultant/${users[0].id}`} style={{ textDecoration: "none" }}>
+                  <Link to={`/user_consultant/${consultant[0]?.id}`} style={{ textDecoration: "none" }}>
                     <div className="viewButton">View</div>
                   </Link>
                   <div
                     className="deleteButton"
-                    onClick={() => deleteConsultant(users[0].id)}
+                    onClick={() => handleClickOpen(users[0].id)}
                   >
                     Delete
                   </div>
@@ -58,6 +77,7 @@ const Datatable_consultant = (props) => {
               </td>
             </tr>
               : users.map((user) => (
+                // consultant.map((consultant)=>(    
                 <tr key={user?.id}>
                   <td>{user?.id}</td>
                   <td>{user?.username}</td>
@@ -65,23 +85,39 @@ const Datatable_consultant = (props) => {
                   <td>{user?.telephone}</td>
                   <td>
                     <div className="cellAction">
-                      <Link to={`/user_consultant/${user.id}`} style={{ textDecoration: "none" }}>
+                      <Link to={`/user_consultant/${consultant[index]?.id}`} style={{ textDecoration: "none" }}>
                         <div className="viewButton">View</div>
                       </Link>
-                      <div 
+                      <div
                         className="deleteButton"
-                        onClick={() => deleteConsultant(user.id)}
+                        onClick={() => handleClickOpen(user.id)}
                       >
                         Delete
                       </div>
                     </div>
+                    <span hidden>{index++}</span>
                   </td>
                 </tr>
                 //rowspan / colspan
+                // ))
               ))
-          ) : <tr><td colSpan='5' className="text-center"> User founded</td></tr>}
+          ) : <tr><td colSpan='5' className="text-center">No User found</td></tr>}
         </tbody>
       </table>
+      <Modal show={open} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><div className="alert alert-danger">are you sure you want to delete this?</div></Modal.Body>
+        <Modal.Footer>
+          <Button variant="default" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => deleteConsultant()}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

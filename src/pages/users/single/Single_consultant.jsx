@@ -11,14 +11,14 @@ import { useParams } from "react-router-dom";
 const Single_consultant = () => {
 
   const parames = useParams();
-  const [user, setUser] = useState([]);
+  const [Consultant, setConsultant] = useState([]);
 
-  useEffect((user) => {
+  useEffect((Consultant) => {
     axios.get(`${URL}/getbyId_consultant/${parames.id}`).then(function (res) {
-      setUser(res.data);
+      setConsultant(res.data);
     });
   }, [])
-  
+
   return (
     <div className="single">
       <Sidebar />
@@ -35,31 +35,31 @@ const Single_consultant = () => {
                 className="itemImg"
               /> */}
               <div className="details">
-                <h1 className="itemTitle">{user.username}</h1>
+                <h1 className="itemTitle">{Consultant.username}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
-                  <span className="itemValue">{user.email}</span>
+                  <span className="itemValue">{Consultant.email}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+216 {user.telephone}</span>
+                  <span className="itemValue">+216 {Consultant.telephone}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Address:</span>
                   <span className="itemValue">
-                    {user.adress}
+                    {Consultant.adress}
                   </span>
                 </div>
               </div>
             </div>
           </div>
           {/* <div className="right">
-            <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
+            <Chart aspect={3 / 1} title="Consultant Spending ( Last 6 Months)" />
           </div> */}
         </div>
         <div className="bottom">
           <h1 className="title">Last Transactions</h1>
-          <List data={{user : user.id}} />
+          <List data={{ Consultant: Consultant.id }} />
         </div>
       </div>
     </div>

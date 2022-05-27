@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import axios from "axios";
 import { URL } from "../../../constant/Constant"
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const New_Entreprise = ({ title }) => {
 
@@ -35,28 +35,25 @@ const New_Entreprise = ({ title }) => {
       e.preventDefault();
       setAlert(false);
       return null;
-    } else if (formData.username.count < 3) {
-console.log(formData.username.count);
-return null
+    } else {
+      axios.post(`${URL}/register_entreprise`, formData)
+        .then(function (response) {
+          setAlert(true);
+          setFormData({
+            username: "",
+            telephone: "",
+            email: "",
+            password: "",
+            adress: "",
+            mobile: "",
+            contact: "",
+            web: "",
+          });
+          // console.log(response);
+          navigate('/entreprise')
+        })
     }
-    axios.post(`${URL}/register_entreprise`, formData)
-      .then(function (response) {
-        setAlert(true);
-        setFormData({
-          username: "",
-          telephone: "",
-          email: "",
-          password: "",
-          adress: "",
-          mobile: "",
-          contact: "",
-          web: "",
-        });
-        // console.log(response);
-        navigate('/entreprise')
-      })
   }
-
   return (
     <div className="new">
       <Sidebar />
@@ -70,7 +67,7 @@ return null
             <form>
 
               <div className="formInput">
-                <label>Nom Entreprise <b>*</b></label>
+                <label>Name Entreprise <b>*</b></label>
                 <input type="text" placeholder="africa managment service" name="username"
                   onChange={handleChange} />
               </div>

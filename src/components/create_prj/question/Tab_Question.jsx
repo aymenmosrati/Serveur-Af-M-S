@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { URL } from "../../../constant/Constant";
 import { useState } from "react";
+import { Button, Modal } from 'react-bootstrap';
 
 const Tab_Question = (props) => {
   const { Questions } = props.data;
@@ -18,8 +19,19 @@ const Tab_Question = (props) => {
   const handleShow = () => setShow(true);
   const [up_nor, setup_nor] = useState();
   // console.log(Questions);
-  const deleteQuestion = (id) => {
-    axios.delete(`${URL}/delete_question/${id}`)
+
+  const [open, setOpen] = useState(false);
+  const [id_Q , setId_Q] = useState();
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setId_Q(id);
+  };
+  const handleClickClose = () => {
+    setOpen(false);
+  };
+
+  const deleteQuestion = () => {
+    axios.delete(`${URL}/delete_question/${id_Q}`)
       .then((response) => {
         window.location.reload(false)
       })
@@ -35,7 +47,7 @@ const Tab_Question = (props) => {
   }
   // console.log(Questions);
   return (
-
+<>
     <TableContainer component={Paper} className="table">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -66,7 +78,7 @@ const Tab_Question = (props) => {
                   </div>
                   <div
                     className="deleteButton"
-                    onClick={() => deleteQuestion(question.id)}
+                    onClick={() => handleClickOpen(question.id)}
                   >
                     Delete
                   </div>
@@ -77,6 +89,21 @@ const Tab_Question = (props) => {
         </TableBody>
       </Table>
     </TableContainer>
+    <Modal show={open} onHide={handleClickClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><div className="alert alert-danger">are you sure you want to delete this?</div></Modal.Body>
+        <Modal.Footer>
+          <Button variant="default" onClick={handleClickClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => deleteQuestion() }>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+</>
   );
 };
 
