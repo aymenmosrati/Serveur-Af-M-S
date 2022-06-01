@@ -18,33 +18,27 @@ const Widget = ({ type }) => {
   const [count_E, setcount_E] = useState([]);
   const [count_N, setcount_N] = useState([]);
   const [count_P, setcount_P] = useState([]);
+const [dataLoaded, setDataLoaded]=useState(false);
 
-
-  useEffect((count_C) => {
+  useEffect(() => {
     axios.get(`${URL}/countAll_consultant`).then(function (res) {
       //  console.log(res.data);
       setcount_C(res.data);
     });
-  }, [])
-  useEffect((count_E) => {
     axios.get(`${URL}/countAll_entreprise`).then(function (res) {
       //  console.log(res.data);
       setcount_E(res.data);
     });
-  }, [])
-  useEffect((count_N) => {
     axios.get(`${URL}/countAll_norme`).then(function (res) {
       //  console.log(res.data);
       setcount_N(res.data);
     });
-  }, [])
-  useEffect((count_P) => {
     axios.get(`${URL}/countAll_project`).then(function (res) {
       //  console.log(res.data);
       setcount_P(res.data);
     });
   }, [])
-
+  
   switch (type) {
     case "consultant":
       data = {
@@ -114,24 +108,24 @@ const Widget = ({ type }) => {
   return (
     <div className="widget">
       <div className="left">
-        <span className="title">{data.title}</span>
+        <span className="title">{data?.title}</span>
         <span className="counter">
-          {data.isConsultant && `${count_C}`} 
-          {data.isEntreprise && `${count_E}`} 
-          {data.isnorme && `${count_N}`} 
-          {data.isprojet && `${count_P}`} 
+          {data?.isConsultant && `${count_C}`} 
+          {data?.isEntreprise && `${count_E}`} 
+          {data?.isnorme && `${count_N}`} 
+          {data?.isprojet && `${count_P}`} 
         </span>
         <Link to="/consultant" style={{ textDecoration: "none" }}>
-        <span className="link">{data.link_C}</span>
+        <span className="link">{data?.link_C}</span>
           </Link>
           <Link to="/entreprise" style={{ textDecoration: "none" }}>
-          <span className="link">{data.link_E}</span>
+          <span className="link">{data?.link_E}</span>
           </Link>
         <Link to="/Norme" style={{ textDecoration: "none" }}>
-        <span className="link">{data.link_N}</span>
+        <span className="link">{data?.link_N}</span>
           </Link>
         <Link to="/projets" style={{ textDecoration: "none" }}>
-              <span className="link">{data.link_P}</span>
+              <span className="link">{data?.link_P}</span>
           </Link>
       </div>
       <div className="right">
@@ -139,7 +133,7 @@ const Widget = ({ type }) => {
           <KeyboardArrowUpIcon />
           {diff} %
         </div>
-        {data.icon}
+        {data?.icon}
       </div>
     </div>
   );

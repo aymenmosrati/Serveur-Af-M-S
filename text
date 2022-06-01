@@ -1,0 +1,44 @@
+// const initialValue = [{ id: 0, evaluation: "", observation: "" }];
+    // const [res, setRes] = useState(initialValue);
+    // useEffect(() => {
+    //     if (count < count.question) {
+    //         setCount(count + 1)
+    //     }
+    //     setCount(count + 1)
+    //     let allowedState = [
+
+    //         //     for (var i = 0; i < question.length; i++) {
+    //         // for (let index = 0; index < question.length; index++) {
+    //         // const element = question[index];
+    //         // { id: id_question[index], evaluation: evaluation[index], observation: observation[index] },
+    //     // }
+    //         // { id: id_question[i], evaluation: evaluation[i], observation: observation[i] },
+    //         // }
+    //     ]
+    // })
+
+    // let allowedState = [
+    //     for (var i = 0; i < question.length; i++) {
+    //     { "id": [i], "evaluation": evaluation.[i], "observation": observation.[i] }
+    // }
+    // { id: 1, evaluation: "evaluation", observation: "Alabama" },
+    // { id: 2, evaluation: "Georgia", observation: "Alabama" },
+    // { id: 3, evaluation: "Tennessee", observation: "Alabama" }
+    // ];
+    // useEffect(() => {
+    // Should not ever set state during rendering, so do this in useEffect instead.
+    // for (var i = 0; i < 2; i++) {
+    //     // { id: [i], "eva:", evaluation, "obs:", observation }
+    //     if ([i] == evaluation) {
+    // const allowedState = { evaluation }
+
+    //     }
+    // }
+    // }, []);
+    // const onChangeTerm = (e) => {
+    //     let alle = {}
+    //     // for (var i = 0; i < question.length; i++) {
+    //         setEvaluation({ ...evaluation, [e.target.name]: e.target.value });
+    //         setObservation({ ...observation, [e.target.id]: e.target.Key });
+    //     // }
+    // }

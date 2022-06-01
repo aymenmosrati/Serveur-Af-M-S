@@ -4,7 +4,7 @@ import Navbar from "../../../components/navbar/Navbar";
 import { useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import axios from "axios";
-import { URL } from "../../../constant/Constant"
+import { URL } from "../../../constant/Constant";
 import { useNavigate } from 'react-router-dom';
 import validator from 'validator'
 
@@ -89,8 +89,7 @@ const New_Consultant = ({ title }) => {
       setAlertemail(true);
       setAlertemaildispo(true);
       return null;
-    }
-     else {
+    } else {
       axios.post(`${URL}/register_consultant`, formData)
         .then(function (response) {
           setAlert(true);
@@ -103,6 +102,8 @@ const New_Consultant = ({ title }) => {
           });
           // console.log(response);
           navigate('/consultant')
+          window.location.reload(false)
+
         }).catch((err) => {
           setAlertemaildispo(false);
           setAlert(true);

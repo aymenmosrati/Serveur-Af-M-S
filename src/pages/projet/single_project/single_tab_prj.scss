@@ -1,0 +1,170 @@
+div {
+    .nav_bott {
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding-bottom: 6px;
+            padding-left: 50px;
+            padding-top: 2px;
+
+            overflow: hidden;
+            background-color: rgb(26, 24, 24);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        li {
+            float: left;
+
+        }
+
+        li div a {
+            background-color: rgb(191, 208, 245);
+            // float: inline-end;
+            margin-left: 550px;
+        }
+
+        li a {
+            display: block;
+            color: rgb(199, 198, 198);
+            text-align: center;
+            padding: 8px 15px;
+            text-decoration: none;
+            margin-left: 4px;
+            border-radius: 3px;
+            font-size: 11px;
+            background-color: rgb(63, 60, 60);
+        }
+
+        li div a:hover:not(.reg_prj) {
+            background-color: rgb(206, 209, 216);
+            color: rgb(63, 60, 60);
+        }
+
+        li a:hover:not(.active) {
+            background-color: rgb(75, 73, 73);
+            color: rgb(248, 245, 245);
+            cursor: pointer;
+        }
+
+        .active {
+            background-color: rgb(105, 103, 103);
+            color: rgb(255, 255, 255)
+        }
+
+        .norme {
+            background-color: rgb(191, 208, 245);
+            color: white;
+            text-align: center;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .discription {
+            margin-bottom: 18px;
+
+            .a {
+                div {
+                    border: 1px solid rgb(196, 192, 192);
+                    margin-right: 930px;
+                    margin-left: 10px;
+                    margin-top: 7px;
+                    text-align: center;
+                    background-color: rgb(250, 246, 246);
+                }
+            }
+
+            .b {
+                margin-top: -98.9px;
+
+                div {
+                    border: 1px solid rgb(196, 192, 192);
+                    margin-left: 295px;
+                    margin-right: 10px;
+                    text-align: center;
+                    margin-top: 7px;
+                    background-color: rgb(250, 246, 246);
+                }
+            }
+        }
+
+        .tb {
+            border: 0.2ex solid rgb(214, 212, 212);
+            background-color: rgb(250, 246, 246);
+
+            .head {
+                background-color: rgb(191, 208, 245);
+            }
+
+            select {
+                border: none;
+                font-size: 13px;
+                background-color: rgb(247, 243, 243);
+
+            }
+
+            textarea {
+                border: 0.2ex solid rgb(223, 220, 220);
+                font-size: 13px;
+                background-color: rgb(247, 243, 243);
+            }
+
+            .res_qeus {
+                color: rgb(84, 78, 78);
+                text-align: center;
+                padding: 5px 1px;
+                width: 70px;
+                height: 30px;
+                text-decoration: none;
+                margin: 12px 27px;
+                border-radius: 3px;
+                font-size: 11px;
+                background-color: rgb(176, 196, 240);
+                // color: rgb(63, 60, 60) ;
+                cursor: pointer;
+            }
+
+            .aqeon {
+
+                // margin-left: 30px;
+                .a {
+                    padding-left: 70px;
+                }
+
+                .q {
+                    padding-left: 220px;
+                }
+
+                .e {
+                    padding-left: 120px;
+                }
+
+                .o {
+                    padding-left: 100px;
+                }
+
+                .n {
+                    padding-left: 230px;
+                }
+            }
+
+            .chap {
+                font-size: 11px;
+                font-weight: 900;
+            }
+
+            .art {
+                font-size: 12px;
+                font-weight: 900;
+
+            }
+
+            .quest {
+                font-size: 13px;
+                font-weight: 600;
+                word-spacing: -1px;
+            }
+        }
+    }
+}

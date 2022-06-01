@@ -1,93 +1,98 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
+import axios from "axios";
+import { URL } from "../../constant/Constant"
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-    },
-}));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-        border: 0,
-    },
-}));
+const Tab_prj = () => {
 
-function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-) {
-    return { name, calories, fat, carbs, protein };
-}
+    const [ projectsTable, setProjectsTable] = useState([]);
+    const [entreprises, setEntreprises] = useState([]);
+    const [consultants, setConsultants] = useState([]);
+    const [normes, setNormes] = useState([]);
+    let index = 0;
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+    useEffect(() => {
+        axios.get(`${URL}/getAllProjects`)
+            .then((result) => {
+                setProjectsTable(result?.data?.projects);
+                setEntreprises(result?.data?.eNames);
+                setNormes(result?.data?.normes);
+                setConsultants(result?.data?.cNames);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
-export default function CustomizedTables() {
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Norme </StyledTableCell>
-                        <StyledTableCell >Entreprise</StyledTableCell>
-                        <StyledTableCell >Consultant</StyledTableCell>
-                        <StyledTableCell>Date debut</StyledTableCell>
-                        <StyledTableCell>Date fin</StyledTableCell>
-                        <StyledTableCell></StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell>{row.calories}</StyledTableCell>
-                            <StyledTableCell>{row.fat}</StyledTableCell>
-                            <StyledTableCell>{row.carbs}</StyledTableCell>
-                            <StyledTableCell>{row.protein}</StyledTableCell>
-                            <StyledTableCell>
-                                <Link to={`/questions/${row.id}`} style={{ textDecoration: "none" }}>
-                                    <div className="viewButton">View</div>
-                                </Link>
-                                
-                                <div
-                                    className="deleteButton"
-                                    // onClick={() => deleteQuestion(question.id)}
-                                >
-                                    Delete
-                                </div>
-                            </StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div className="container" style={{ marginTop: "20px" }}>
+            <table className="table">
+                <thead className="thead-dark">
+                    <tr>
+                        <th scope="col">Nom Entreprise</th>
+                        <th scope="col">Nom Consultant</th>
+                        <th scope="col">Norme</th>
+                        <th scope="col">Date debut</th>
+                        <th scope="col">date Fin</th>
+                        <th scope="col">View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {projectsTable.length > 0 ? (
+                        projectsTable.length === 1 ? (
+                            <tr key={projectsTable[0]?.id}>
+                                <td className="tableCell">{consultants[index]}</td>
+                                <td className="tableCell">{entreprises[index]}</td>
+                                <td className="tableCell">
+                                    {normes[index]}
+                                    <span hidden>{index++}</span>
+                                </td>
+                                <td className="tableCell">{projectsTable[0]?.date_deb}</td>
+                                <td className="tableCell">{projectsTable[0]?.date_fin}</td>
+                                <td className="tableCell">
+                                    <Link
+                                        to={`/projet/${projectsTable[0]?.id}/${consultants[index]}/${entreprises[index]}/${projectsTable[0]?.date_deb}/${projectsTable[0]?.date_fin}`}
+                                        style={{ textDecoration: "none" }}
+                                        className="btn btn-outline-dark"
+                                    >
+                                        <div className="viewButton">View</div>
+                                    </Link>
+                                </td>
+                            </tr>
+                        ) : (
+                            projectsTable?.map((project) => (
+                                <tr key={project?.id}>
+                                    <td className="tableCell"> {consultants[index]}</td>
+                                    <td className="tableCell">{entreprises[index]}</td>
+                                    <td className="tableCell">
+                                        {normes[index]}
+                                        <span hidden>{index++}</span>
+                                    </td>
+                                    <td className="tableCell">{project?.date_deb}</td>
+                                    <td className="tableCell">{project?.date_fin}</td>
+                                    <td className="tableCell">
+                                        <Link
+                                            to={`/projet/${project?.id}/${consultants[index]}/${entreprises[index]}/${project?.date_deb}/${project?.date_fin}`}
+                                            className="btn btn-outline-dark"
+                                        >
+                                            view
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))
+                        )
+                    ) : (
+                        <tr>
+                            <td colSpan="7" className="text-center">
+                                No Data found
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
     );
-}
+};
+
+export default Tab_prj;

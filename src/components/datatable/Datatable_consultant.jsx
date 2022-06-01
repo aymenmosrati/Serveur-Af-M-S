@@ -88,12 +88,7 @@ const Datatable_consultant = (props) => {
                       <Link to={`/user_consultant/${consultant[index]?.id}`} style={{ textDecoration: "none" }}>
                         <div className="viewButton">View</div>
                       </Link>
-                      <div
-                        className="deleteButton"
-                        onClick={() => handleClickOpen(user.id)}
-                      >
-                        Delete
-                      </div>
+                      <div className="deleteButton" onClick={() => handleClickOpen(user.id)} > Delete </div> 
                     </div>
                     <span hidden>{index++}</span>
                   </td>

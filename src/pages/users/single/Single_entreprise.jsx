@@ -16,7 +16,7 @@ const Single_entreprise = () => {
   useEffect((Entreprise) => {
     axios.get(`${URL}/getbyId_entreprise/${parames.id}`).then(function (res) {
       setEntreprise(res.data);
-      // console.log(res.data)
+      //  console.log(res.data)
     });
   }, [])
   
@@ -36,28 +36,28 @@ const Single_entreprise = () => {
                 className="itemImg"
               /> */}
               <div className="details">
-                <h1 className="itemTitle">{Entreprise.username}</h1>
+                <h1 className="itemTitle">{Entreprise?.subInfo?.username}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
-                  <span className="itemValue">{Entreprise.email}</span>
+                  <span className="itemValue">{Entreprise?.subInfo?.email}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+216 {Entreprise.telephone}</span>
+                  <span className="itemValue">+216 {Entreprise?.subInfo?.telephone}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Address:</span>
                   <span className="itemValue">
-                   {Entreprise.adress}
+                   {Entreprise?.subInfo?.adress}
                   </span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Contact:</span>
-                  <span className="itemValue">{Entreprise?.subInfo?.contact}</span>
+                  <span className="itemValue">{Entreprise?.contact}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Mobile:</span>
-                  <span className="itemValue">+216 {Entreprise?.subInfo?.mobile}</span>
+                  <span className="itemValue">+216 {Entreprise?.mobile}</span>
                 </div>
               </div>
             </div>
@@ -68,7 +68,7 @@ const Single_entreprise = () => {
         </div>
         <div className="bottom">
         <h1 className="title">Last Transactions</h1>
-          <List  data={{Entreprise : Entreprise.id}}/>
+          <List  data={{Entreprise : Entreprise.id , n_e:Entreprise.username}}/>
         </div>
       </div>
     </div>

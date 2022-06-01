@@ -1,3 +1,4 @@
+   
 import "./table_prj_user.scss";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,10 +10,10 @@ import Paper from "@mui/material/Paper";
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { URL } from "../../constant/Constant"
-import { useParams } from "react-router-dom";
+import { useParams, Link} from "react-router-dom";
 
 const Projet_entreprise = (props) => {
-  const { Entreprise } = props.data;
+  const { Entreprise, n_e } = props.data;
   const [projectsTable, setProjectsTable] = useState([
     { NormeId: "", date_deb: "", date_fin: "" },
   ]);
@@ -41,8 +42,6 @@ const Projet_entreprise = (props) => {
             <TableCell className="tableCell">Date debut</TableCell>
             <TableCell className="tableCell">Date Fin</TableCell>
             <TableCell className="tableCell">View</TableCell>
-            <TableCell className="tableCell">Statistique</TableCell>
-            <TableCell className="tableCell">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -55,14 +54,11 @@ const Projet_entreprise = (props) => {
                 <TableCell className="tableCell">{projectsTable[0]?.date_deb}</TableCell>
                 <TableCell className="tableCell">{projectsTable[0]?.date_fin}</TableCell>
                 <TableCell className="tableCell">
-                  <button type="button" className="btn btn-outline-dark">
+                  <Link type="button" className="btn btn-outline-dark"
+                    to={`/projet/${projectsTable[0]?.id}/${Consultant[0]}/${n_e}/${projectsTable[0]?.date_deb}/${projectsTable[0]?.date_fin}`}
+                    >
                     view
-                  </button>
-                </TableCell>
-                <TableCell className="tableCell">
-                  <button ype="button" className="btn btn-outline-secondary">
-                    stats
-                  </button>
+                  </Link>
                 </TableCell>
               </TableRow>
               : projectsTable.map((project) => (
@@ -73,19 +69,16 @@ const Projet_entreprise = (props) => {
                   <TableCell className="tableCell">{project?.date_deb}</TableCell>
                   <TableCell className="tableCell">{project?.date_fin}</TableCell>
                   <TableCell className="tableCell">
-                    <button type="button" className="btn btn-outline-dark">
+                    <Link type="button" className="btn btn-outline-dark"
+                      to={`/projet/${project?.id}/${Consultant[index]}/${n_e}/${project?.date_deb}/${project?.date_fin}`}
+                      >
                       view
-                    </button>
-                  </TableCell>
-                  <TableCell className="tableCell">
-                    <button ype="button" className="btn btn-outline-secondary">
-                      stats
-                    </button>
+                    </Link>
                     <span hidden>{index++}</span>
                   </TableCell>
                 </TableRow>
               ))
-          ) : <TableRow><TableCell colSpan='7' className="text-center" >No Project found</TableCell></TableRow>}
+          ) : <TableRow><TableCell colSpan='5' className="text-center" >No Project found</TableCell></TableRow>}
         </TableBody>
       </Table>
     </TableContainer>
@@ -93,4 +86,3 @@ const Projet_entreprise = (props) => {
 };
 
 export default Projet_entreprise;
-

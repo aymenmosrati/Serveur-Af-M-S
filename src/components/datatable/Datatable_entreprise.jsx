@@ -4,10 +4,7 @@ import axios from "axios";
 import { URL } from "../../constant/Constant"
 import { useState } from "react"
 import { Button, Modal } from 'react-bootstrap';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PreviewIcon from '@mui/icons-material/Preview';
 import AddIcon from '@mui/icons-material/Add';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const Datatable_entreprise = (props) => {
 
@@ -54,7 +51,7 @@ const Datatable_entreprise = (props) => {
             <th>Add Project</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody key={users[0]?.id}>
           {users.length > 0 ? (
             users.length === 1 ? <tr key={users[0]?.id}>
               <td>{users[0]?.id}</td>
@@ -63,23 +60,21 @@ const Datatable_entreprise = (props) => {
               <td>{users[0]?.telephone}</td>
               <td>
                 <div className="cellAction">
-                  <Link to={`/user_entreprise/${entreprise[0].id}`} style={{ textDecoration: "none" }}>
+                  <Link to={`/user_entreprise/${entreprise[0]?.id}`} style={{ textDecoration: "none" }}>
                     <div className="viewButton">View</div>
                   </Link>
                   <div
                     className="deleteButton"
-                    onClick={() => handleClickOpen(users[0].id)}
+                    onClick={() => handleClickOpen(users[0]?.id)}
                   >
                     Delete
                   </div>
                 </div>
               </td>
               <td>
-                <tr>
-                  <Link to={`/ajoute_projet/${entreprise[0].id}/${users[0]?.username}`} >
+                  <Link to={`/ajoute_projet/${entreprise[0]?.id}/${users[0]?.username}`} >
                     <div className="ajoutButton"><AddIcon /></div>
                   </Link>
-                </tr>
               </td>
             </tr>
               : users.map((user) => (
@@ -91,26 +86,20 @@ const Datatable_entreprise = (props) => {
                   <td>
                     <div className="cellAction">
                       <Link to={`/user_entreprise/${entreprise[index]?.id}`} style={{ textDecoration: "none" }}>
-                        <div className="viewButton">
-                          {/* <VisibilityIcon /> */}
-                          View
-                        </div>
+                        <div className="viewButton">View</div>
                       </Link>
                       <div
                         className="deleteButton"
                         onClick={() => handleClickOpen(user.id)}
                       >
-                        {/* <DeleteIcon /> */}
                         Delete
                       </div>
                     </div>
                   </td>
                   <td>
-                    <tr>
                       <Link to={`/ajoute_projet/${entreprise[index]?.id}/${user?.username}`} >
                         <div className="ajoutButton"><AddIcon /></div>
                       </Link>
-                    </tr>
                     <span hidden>{index++}</span>
                   </td>
                 </tr>

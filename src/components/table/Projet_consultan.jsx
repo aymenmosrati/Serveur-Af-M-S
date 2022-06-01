@@ -9,10 +9,10 @@ import Paper from "@mui/material/Paper";
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { URL } from "../../constant/Constant"
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const Projet_consultan = (props) => {
-  const { Consultant } = props.data;
+  const { Consultant,n_c } = props.data;
   const [projectsTable, setProjectsTable] = useState([
     { NormeId: "", date_deb: "", date_fin: "" },
   ]);
@@ -40,8 +40,6 @@ const Projet_consultan = (props) => {
             <TableCell className="tableCell">Date debut</TableCell>
             <TableCell className="tableCell">Date Fin</TableCell>
             <TableCell className="tableCell">View</TableCell>
-            <TableCell className="tableCell">Statistique</TableCell>
-            <TableCell className="tableCell">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,14 +52,11 @@ const Projet_consultan = (props) => {
                 <TableCell className="tableCell">{projectsTable[0]?.date_deb}</TableCell>
                 <TableCell className="tableCell">{projectsTable[0]?.date_fin}</TableCell>
                 <TableCell className="tableCell">
-                  <button type="button" className="btn btn-outline-dark">
+                  <Link type="button" className="btn btn-outline-dark"
+                    to={`/projet/${projectsTable[0]?.id}/${n_c}/${entreprises[0]}/${projectsTable[0]?.date_deb}/${projectsTable[0]?.date_fin}`}
+                  >
                     view
-                  </button>
-                </TableCell>
-                <TableCell className="tableCell">
-                  <button ype="button" className="btn btn-outline-secondary">
-                    stats
-                  </button>
+                  </Link>
                 </TableCell>
               </TableRow>
               : projectsTable.map((project) => (
@@ -72,19 +67,16 @@ const Projet_consultan = (props) => {
                   <TableCell className="tableCell">{project?.date_deb}</TableCell>
                   <TableCell className="tableCell">{project?.date_fin}</TableCell>
                   <TableCell className="tableCell">
-                    <button type="button" className="btn btn-outline-dark">
+                    <Link type="button" className="btn btn-outline-dark"
+                      to={`/projet/${project?.id}/${n_c}/${entreprises[index]}/${project?.date_deb}/${project?.date_fin}`}
+                    >
                       view
-                    </button>
-                  </TableCell>
-                  <TableCell className="tableCell">
-                    <button ype="button" className="btn btn-outline-secondary">
-                      stats
-                    </button>
+                    </Link>
                     <span hidden>{index++}</span>
                   </TableCell>
                 </TableRow>
               ))
-          ) : <TableRow><TableCell colSpan='7' className="text-center" >No Project found</TableCell></TableRow>}
+          ) : <TableRow><TableCell colSpan='5' className="text-center" >No Project found</TableCell></TableRow>}
         </TableBody>
       </Table>
     </TableContainer>

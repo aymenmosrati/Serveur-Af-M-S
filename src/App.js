@@ -20,8 +20,10 @@ import Article from "./pages/create_project/article/Article";
 import Question from "./pages/create_project/question/Question";
 import Projet from "./pages/projet/Projet"
 import Add_Prj from "./pages/projet/Add_Prj"
+import Single_project from "./pages/projet/single_project/Single_project";
 
 import { productInputs, userInputs } from "./formSource";
+import SinglePrjE from "./pages/projet/tableau project entreprise/SinglePrjE";
 
 
 function App() {
@@ -38,11 +40,15 @@ function App() {
           <Route path="/user_consultant/:id" element={<Single_consultant />} />
           <Route path="/user_entreprise/:id" element={<Single_entreprise />} />
           <Route path="/Norme" element={<Norme />} />
-          <Route path="/chapitres/:id" element={<Chapitre />}/>
+          <Route path="/chapitres/:id" element={<Chapitre />} />
           <Route path="/articles/:id" element={<Article />} />
           <Route path="/questions/:id" element={<Question />} />
-          <Route path="/projets" element={<Projet />}/>
-          <Route path="/ajoute_projet/:id/:name" element={<Add_Prj />}/>
+          <Route path="/projets" element={<Projet />} />
+          <Route path="/ajoute_projet/:id/:name" element={<Add_Prj />} />
+          <Route path="/projet/:id/:n_c/:n_e/:d_d/:d_f" exact element={<Single_project />} /> 
+
+          {/* <Route path="/projet/:id/:n_c/:n_e/:d_d/:d_f/e" exact element={<SinglePrjE />} /> */}
+
         </Routes>
       </BrowserRouter>
     </div>

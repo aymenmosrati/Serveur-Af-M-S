@@ -4,7 +4,7 @@ import Navbar from "../../../components/navbar/Navbar";
 import { useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import axios from "axios";
-import { URL } from "../../../constant/Constant"
+import { URL } from "../../../constant/Constant";
 import { useNavigate } from 'react-router-dom';
 
 const New_Entreprise = ({ title }) => {
@@ -31,27 +31,22 @@ const New_Entreprise = ({ title }) => {
   };
 
   const handelClick = (e) => {
+    e.preventDefault();
     if (formData.username === "" || formData.telephone === "" || formData.email === "" || formData.password === "" || formData.adress === "") {
-      e.preventDefault();
       setAlert(false);
       return null;
     } else {
       axios.post(`${URL}/register_entreprise`, formData)
-        .then(function (response) {
-          setAlert(true);
-          setFormData({
-            username: "",
-            telephone: "",
-            email: "",
-            password: "",
-            adress: "",
-            mobile: "",
-            contact: "",
-            web: "",
-          });
-          // console.log(response);
-          navigate('/entreprise')
+        .then(function (res) {
+          if (!res) {
+            console.log(res);
+          } else {
+            navigate('/entreprise')
+            window.location.reload(false)
+          }
+
         })
+
     }
   }
   return (

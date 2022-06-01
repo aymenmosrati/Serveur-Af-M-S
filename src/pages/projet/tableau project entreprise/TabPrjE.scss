@@ -1,0 +1,164 @@
+div {
+    .nav_bott {
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding-bottom: 6px;
+            padding-left: 50px;
+            padding-top: 2px;
+
+            overflow: hidden;
+            background-color: rgb(26, 24, 24);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        li {
+            float: left;
+
+        }
+
+        li div a {
+            background-color: rgb(191, 208, 245);
+            // float: inline-end;
+            margin-left: 550px;
+        }
+
+        li a {
+            display: block;
+            color: rgb(199, 198, 198);
+            text-align: center;
+            padding: 8px 15px;
+            text-decoration: none;
+            margin-left: 4px;
+            border-radius: 3px;
+            font-size: 11px;
+            background-color: rgb(63, 60, 60);
+        }
+
+        li div a:hover:not(.reg_prj) {
+            background-color: rgb(206, 209, 216);
+            color: rgb(63, 60, 60);
+        }
+
+        li a:hover:not(.active) {
+            background-color: rgb(75, 73, 73);
+            color: rgb(248, 245, 245);
+            cursor: pointer;
+        }
+
+        .active {
+            background-color: rgb(105, 103, 103);
+            color: rgb(255, 255, 255)
+        }
+
+        .norme {
+            background-color: rgb(191, 208, 245);
+            color: white;
+            text-align: center;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .discription {
+            margin-bottom: 18px;
+
+            .a {
+                div {
+                    border: 1px solid rgb(196, 192, 192);
+                    margin-right: 930px;
+                    margin-left: 12px;
+                    margin-top: 7px;
+                    text-align: center;
+                    background-color: rgb(250, 246, 246);
+                }
+            }
+
+            .b {
+                margin-top: -98.9px;
+
+                div {
+                    border: 1px solid rgb(196, 192, 192);
+                    margin-left: 295px;
+                    margin-right: 12px;
+                    text-align: center;
+                    margin-top: 7px;
+                    background-color: rgb(250, 246, 246);
+                }
+            }
+        }
+
+        .tb {
+            border: 0.2ex solid rgb(214, 212, 212);
+            background-color: rgb(250, 246, 246);
+            width: 98%;
+            margin-left: 10px;
+            .head {
+                background-color: rgb(191, 208, 245);
+            }
+
+            .aqeon {
+                .a {
+                    padding-left: 70px;
+                }
+
+                .q {
+                    padding-left: 200px;
+                }
+
+                .e {
+                    padding-left: 230px;
+                }
+
+                .o {
+                    padding-left: 100px;
+                }
+
+                .n {
+                    padding-left: 130px;
+                }
+            }
+
+            .chap {
+                font-size: 11px;
+                font-weight: 900;
+                word-wrap: break-word;
+
+            }
+
+            .art {
+                font-size: 11px;
+                font-weight: 900;
+                word-wrap: break-word;
+            }
+
+            .quest {
+                font-size: 12px;
+                font-weight: 600;
+                word-spacing: -1px;
+                word-wrap: break-word;
+            }
+
+            .eva {
+                border: 0.2ex solid rgb(223, 220, 220);
+                border-radius:3px;
+                font-size: 12px;
+                background-color: rgb(247, 243, 243);
+            }
+
+            .obs {
+                font-size: 12px;
+                background-color: rgb(247, 243, 243);
+                word-wrap: break-word;
+            }
+            .note_{
+                border: 0.2ex solid rgb(247, 243, 243);
+                font-size: 12px;
+                background-color: rgb(247, 243, 243);
+                padding-left: 30px;
+            }
+
+        }
+    }
+}

@@ -25,12 +25,13 @@ const Add_Prj = () => {
     const [date_fin, setDate_fin] = useState("");
     const [ConsultantId, setConsultantId] = useState('');
     const [EntrepriseId, setEntrepriseId] = useState(parames_id_name.id);
-    const [name_entreprise, setname_entreprise]= useState(parames_id_name.name)
-    const [name_norme , setnamenorme ] = useState()
+    const [name_entreprise, setname_entreprise] = useState(parames_id_name.name)
+    const [name_norme, setnamenorme] = useState()
     const [NormeId, setNormeId] = useState('');
     const [alert, setAlert] = useState(true);
     const [Alertdate, setAlertdate] = useState(true);
     const [Bl, setBl] = useState(false);
+    const navigate = useParams();
 
     function disablePrevDates(startDate) {
         const startSeconds = Date.parse(startDate);
@@ -39,10 +40,9 @@ const Add_Prj = () => {
         }
     }
 
-    // console.log(parames_id_name.id);
 
     const handelClick = (e) => {
-        let item = { date_deb, date_fin, ConsultantId, EntrepriseId, NormeId, name_entreprise}
+        let item = { date_deb, date_fin, ConsultantId, EntrepriseId, NormeId, name_entreprise }
         // console.log(item);
         if (item.ConsultantId === "" || item.NormeId === "") {
             setAlert(false);
@@ -55,7 +55,8 @@ const Add_Prj = () => {
         } else {
             axios.post(`${URL}/ajoute_projet`, item)
                 .then(function (response) {
-
+                    navigate('/projets')
+                    window.location.reload(false)
                 });
         }
         e.preventDefault();

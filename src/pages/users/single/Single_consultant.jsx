@@ -59,7 +59,7 @@ const Single_consultant = () => {
         </div>
         <div className="bottom">
           <h1 className="title">Last Transactions</h1>
-          <List data={{ Consultant: Consultant.id }} />
+          <List data={{ Consultant: Consultant.id, n_c:Consultant.username }} />
         </div>
       </div>
     </div>
