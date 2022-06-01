@@ -21,7 +21,7 @@ import Question from "./pages/create_project/question/Question";
 import Projet from "./pages/projet/Projet"
 import Add_Prj from "./pages/projet/Add_Prj"
 import Single_project from "./pages/projet/single_project/Single_project";
-
+import PadeNoteFound from "./PadeNoteFound/PadeNoteFound";
 import { productInputs, userInputs } from "./formSource";
 import SinglePrjE from "./pages/projet/tableau project entreprise/SinglePrjE";
 
@@ -46,6 +46,7 @@ function App() {
           <Route path="/projets" element={<Projet />} />
           <Route path="/ajoute_projet/:id/:name" element={<Add_Prj />} />
           <Route path="/projet/:id/:n_c/:n_e/:d_d/:d_f" exact element={<Single_project />} /> 
+          <Route path="/*" element={<PadeNoteFound />}/>
 
           {/* <Route path="/projet/:id/:n_c/:n_e/:d_d/:d_f/e" exact element={<SinglePrjE />} /> */}
 
