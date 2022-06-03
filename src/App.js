@@ -20,7 +20,7 @@ import Question from "./pages/create_project/question/Question";
 import Projet from "./pages/projet/Projet";
 import Add_Prj from "./pages/projet/Add_Prj";
 import Single_project from "./pages/projet/single_project/Single_project";
-
+import PadeNoteFound from "./PadeNoteFound/PadeNoteFound";
 import { productInputs, userInputs } from "./formSource";
 import SinglePrjE from "./pages/projet/tableau project entreprise/SinglePrjE";
 import SignIn from "./components/auth/SignIn";
@@ -34,6 +34,7 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
         <Routes>
+<<<<<<< HEAD
           <Route path="/auth" element={curentUser ? <Navigate to="/"/>:<SignIn />} />
           <Route path="*" element={<PadeNotFound/>}/>
           <Route path="/" element={<Home />}/>
@@ -67,6 +68,23 @@ function App() {
               element={<Single_project />}
             />
           
+=======
+          <Route path="/" element={<Home />} />
+          <Route path="/consultant" element={<Consultant />} />
+          <Route path="/consultant/new" element={<New_Consultant title="Add New Consultant" />} />
+          <Route path="/entreprise" element={<Entreprise />} />
+          <Route path="/entreprise/new" element={<New_Entreprise title="Add New Entreprise" />} />
+          <Route path="/user_consultant/:id" element={<Single_consultant />} />
+          <Route path="/user_entreprise/:id" element={<Single_entreprise />} />
+          <Route path="/Norme" element={<Norme />} />
+          <Route path="/chapitres/:id" element={<Chapitre />} />
+          <Route path="/articles/:id" element={<Article />} />
+          <Route path="/questions/:id" element={<Question />} />
+          <Route path="/projets" element={<Projet />} />
+          <Route path="/ajoute_projet/:id/:name" element={<Add_Prj />} />
+          <Route path="/projet/:id/:n_c/:n_e/:d_d/:d_f" exact element={<Single_project />} /> 
+          <Route path="/*" element={<PadeNoteFound />}/>
+>>>>>>> 48b8b8db0924b3be56998ac97f732c7ea6b65595
 
           {/* <Route path="/projet/:id/:n_c/:n_e/:d_d/:d_f/e" exact element={<SinglePrjE />} /> */}
         </Routes>
