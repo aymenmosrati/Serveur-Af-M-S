@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
 import "./StatistiqueSingelPrj.scss";
 import API from "../../../api/index";
 
@@ -26,25 +25,14 @@ const StatSingelPrj = (props) => {
   };
 
   const { handleClose, show, chapitre, id_prj, NormIso } = props.data;
-  const [data, setData] = useState({
-    ProjectId: id_prj,
-    ChapitreId: "",
-  });
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [state, setState] = useState();
 
-  // const ClcResult = (id) => {
-  //     setData({ ...data, ChapitreId: id });
-  //     let result = API.get('getChapitreResults', data).then((res) => {
-  //         return res;
-  //     })
-  //     console.log(result);
-  // }
   let array = [];
 
   const addToArray = (id) => {
     array.push({ ProjectId: id_prj, ChapitreId: id });
-   // console.log(array);
   };
 
   useEffect(() => {
@@ -61,7 +49,7 @@ const StatSingelPrj = (props) => {
     console.log("====================================");
   }
 
-    let index = 0;
+  let index = 0;
   return (
     <>
       {isLoaded ? (
@@ -105,35 +93,6 @@ const StatSingelPrj = (props) => {
                 </div>
               </div>
             </div>
-
-            {/* <div id="stat" className="stat">
-                        <div className="list">
-                            <div className="homeContainer">
-                                <div className="listContainer">
-                                    <p className="titleNor">Résultats globaux, autoévaluation</p>
-                                    <table className="TabPorCentage">
-                                        <thead>
-                                            <tr>
-                                                <th className="col-sm-10">Chapitre de La Norme</th>
-                                                <th className="col-sm-4"> Note (%)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {chapitre.map((chap) => (
-                                                <tr key={chap.id} className="">
-                                                    <td className="chap">{chap.Chapitres}</td>
-                                                    <td>
-                                                        100 %
-                                                    </td>
-                                                </tr>
-                                            ))
-                                            }
-                                        </tbody >
-                                    </table >
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
           </Modal.Body>
           <Modal.Footer>
             <Button
