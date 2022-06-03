@@ -23,41 +23,35 @@ const StatSingelPrj = (props) => {
     };
 
     const { handleClose, show, chapitre, id_prj, NormIso } = props.data;
+
     const [data, setData] = useState({
         ProjectId: id_prj,
-        ChapitreId: ""
+        ChapitreId: "",
     });
-    const [isloead, setLoead] = useState(false);
-    const [state, setState] = useState();
+    // const []
+    // console.log(data);
+    let array = [];
 
-    // const ClcResult = (id) => {
-    //     setData({ ...data, ChapitreId: id });
-    //     let result = API.get('getChapitreResults', data).then((res) => {
-    //         return res;
-    //     })
-    //     console.log(result);
-    // }
+    const ClcResult = () => { 
+        
+        array.push({
+            ProjectId: id_prj,
+            ChapitreId: "",
+        })
+        // let res = {...data};
+        // for (let index = 0; index < chapitre.length; index++) {
+        //     const element = chapitre[index];
+        //     setData({...data, ChapitreId: element.id });
+        // }
+        // console.log(res);
+    }
 
-    useEffect(() => {
-        API.get(`getChapitreResults/`,{
-                "array": [
-                    {
-                        "ProjectId": 27,
-                        "ChapitreId": 4
-                    },
-                    {
-                        "ProjectId": 27,
-                        "ChapitreId": 4
-                    },
-                    {
-                        "ProjectId": 27,
-                        "ChapitreId": 3
-                    }
-                ]
-            }).then((res) => {
-                console.log(res);
-        });
-    }, []);
+    // useEffect(() => {
+    //     API.post(`getChapitreResults/`, {
+    //     }).then((res) => {
+    //         console.log(res);
+    //     });
+    // }, []);
 
     return (
         <>
@@ -140,7 +134,7 @@ const StatSingelPrj = (props) => {
                         onClick={exportPDF}>
                         Export PDF
                     </Button>
-                    <Button variant="primery" onClick={handleClose}>
+                    <Button variant="primery" onClick={ClcResult}>
                         Close
                     </Button>
                 </Modal.Footer>
