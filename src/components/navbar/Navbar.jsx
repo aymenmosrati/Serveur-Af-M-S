@@ -11,7 +11,9 @@ import { useContext } from "react";
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
-
+  if (localStorage.getItem("currentUser")){
+  const curentUser = JSON.parse(localStorage.getItem("curentUser"));
+  }
   return (
     <div className="navbar">
       <div className="wrapper">

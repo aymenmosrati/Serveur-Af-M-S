@@ -11,12 +11,18 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const navigate = useNavigate();
+  const handleLogout = ()=>{
+     localStorage.clear();
+     navigate("/auth");
+     window.location.reload(false);
+  }
   return (
     <div className="sidebar">
       <div className="top">
@@ -48,8 +54,6 @@ const Sidebar = () => {
               <span> Entreprise</span>
             </li>
           </Link>
-
-
 
           <p className="title">USEFUL</p>
           <Link to="/Norme" style={{ textDecoration: "none" }}>
@@ -84,7 +88,6 @@ const Sidebar = () => {
             </li>
           </Link>
 
-
           <p className="title">USER</p>
           <Link to="/profile" style={{ textDecoration: "none" }}>
             <li>
@@ -92,16 +95,14 @@ const Sidebar = () => {
               <span>Profile</span>
             </li>
           </Link>
-          <Link to="/logout" style={{ textDecoration: "none" }}>
+          <Link to="/auth" style={{ textDecoration: "none" }} onClick={handleLogout}>
             <li>
               <ExitToAppIcon className="icon" />
               <span>Logout</span>
             </li>
           </Link>
-
         </ul>
       </div>
-
 
       <div className="bottom">
         <div
@@ -113,7 +114,6 @@ const Sidebar = () => {
           onClick={() => dispatch({ type: "DARK" })}
         ></div>
       </div>
-
     </div>
   );
 };
