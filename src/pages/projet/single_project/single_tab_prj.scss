@@ -22,10 +22,10 @@ div {
         li div a {
             background-color: rgb(191, 208, 245);
             // float: inline-end;
-            margin-left: 550px;
+            margin-left: 800px;
         }
 
-        li a {
+        li a, li span {
             display: block;
             color: rgb(199, 198, 198);
             text-align: center;
@@ -35,6 +35,7 @@ div {
             border-radius: 3px;
             font-size: 11px;
             background-color: rgb(63, 60, 60);
+            cursor: pointer;
         }
 
         li div a:hover:not(.reg_prj) {
@@ -42,16 +43,16 @@ div {
             color: rgb(63, 60, 60);
         }
 
-        li a:hover:not(.active) {
-            background-color: rgb(75, 73, 73);
-            color: rgb(248, 245, 245);
-            cursor: pointer;
-        }
+        // li a:hover:not(.active) {
+        //     background-color: rgb(75, 73, 73);
+        //     color: rgb(248, 245, 245);
+        //     cursor: pointer;
+        // }
 
-        .active {
-            background-color: rgb(105, 103, 103);
-            color: rgb(255, 255, 255)
-        }
+        // .active {
+        //     background-color: rgb(105, 103, 103);
+        //     color: rgb(255, 255, 255)
+        // }
 
         .norme {
             background-color: rgb(191, 208, 245);

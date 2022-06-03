@@ -5,8 +5,10 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import API from "../../../api/index";
 import jsPDF from "jspdf";
 import html2canvas from 'html2canvas';
+import StatSingelPrj from '../StatistiqueSingelPrj/StatSingelPrj';
 
 const Single_project = () => {
+
     const params = useParams();
     const [state, setState] = useState(false);
     const [norme, setNorme] = useState();
@@ -18,14 +20,14 @@ const Single_project = () => {
     const [evaluation, setevaluation] = useState("");
     const [observation, setobservation] = useState("");
     const navigate = useNavigate();
-
+    // todo
     const handelClick = (id) => {
         let result = { id, evaluation, observation }
-
         API.
             patch('updateResult', result)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
+
             }).catch((err) => console.log(err));
         console.log(result)
     }
@@ -38,7 +40,7 @@ const Single_project = () => {
             const imgData = canvas.toDataURL("/img/png");
             const pdf = new jsPDF('p', 'mm', 'a4');
             pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            pdf.save("tabpdf.pdf")
+            pdf.save("Rpport.pdf")
         }
         )
     };
@@ -58,17 +60,24 @@ const Single_project = () => {
         });
     }, []);
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const id_prj = params.id;
+    const NormIso =norme?.norme;
     return (
         <>
             {state ? (
                 <div className="nav_bott">
                     <ul>
                         <li><Link to="/projets">Retourn Table project</Link></li>
-                        <li><a className="active" href="#home">Diagnostic</a></li>
-                        <li><a href="#news">Résultats globaux</a></li>
-                        <li><a href="#contact">Résultats par chapitre</a></li>
+                        {/* <li><a className="active" href="#home">Diagnostic</a></li> */}
+                        <li>
+                            <span onClick={handleShow} >Résultats globaux</span>
+                        </li>
                         <li><div className="reg_prj"><a onClick={exportPDF}>Export PDF</a></div></li>
                     </ul>
+                    <StatSingelPrj data={{ handleClose: handleClose, show: show, chapitre, id_prj, NormIso }} />
                     <div id="tab" className="tab">
                         <br /><br /><br />
                         <p className="norme">Grille d'autoévaluation selon la norme: {norme.norme}</p>
