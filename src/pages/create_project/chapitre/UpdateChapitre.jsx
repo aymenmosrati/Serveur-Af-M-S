@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap';
-import axios from "axios";
-import { URL } from "../../../constant/Constant";
+import API from "../../../api/index";
+
 
 export default function ModalViewUpdate(props) {
     const { up_chap, handleClose, show, setup_chap } = props.data;
@@ -21,7 +21,7 @@ export default function ModalViewUpdate(props) {
 
     useEffect(() => {
         if (!!up_chap?.id) {
-            axios.get(`${URL}/getbyId_Chapitres/${up_chap.id}`)
+            API.get(`getbyId_Chapitres/${up_chap.id}`)
                 .then(function (response) {
                     // setFormData(
                     //     {
@@ -41,7 +41,7 @@ export default function ModalViewUpdate(props) {
             return null;
         }
         // console.log(formData);
-        axios.patch(`${URL}/update_Chapitres/${up_chap.id}`, formData)
+        API.patch(`update_Chapitres/${up_chap.id}`, formData)
             .then(function (response) {
                 setAlert(true);
                 setFormData({

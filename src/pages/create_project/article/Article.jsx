@@ -4,9 +4,9 @@ import Navbar from "../../../components/navbar/Navbar"
 import Table_Article from "../../../components/create_prj/article/Tab_Article"
 import { useState, useEffect } from 'react';
 import { Link,useParams } from "react-router-dom";
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
 import AddArticle from "./AddArticle"
+import API from "../../../api/index";
+
 
 const List_article = () => {
 
@@ -17,7 +17,7 @@ const List_article = () => {
   const parames = useParams();
 
   useEffect((Article) => {
-    axios.get(`${URL}/getarticle_byIdchapitre/${parames.id}`).then(function (res) {
+    API.get(`getarticle_byIdchapitre/${parames.id}`).then(function (res) {
       //  console.log(res.data);
       setArticle(res.data);
     });

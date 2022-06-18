@@ -8,9 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useState, useEffect } from 'react';
-import axios from "axios";
-import { URL } from "../../constant/Constant"
 import { useParams, Link} from "react-router-dom";
+import API from "../../api/index";
 
 const Projet_entreprise = (props) => {
   const { Entreprise, n_e } = props.data;
@@ -23,7 +22,7 @@ const Projet_entreprise = (props) => {
   const parames = useParams();
 
   useEffect((prj_user) => {
-    axios.get(`${URL}/getPE/${parames?.id}`).then(function (result) {
+    API.get(`getPE/${parames?.id}`).then(function (result) {
       // console.log(result.length)
       // console.log(result)
       setProjectsTable(result?.data?.projects);

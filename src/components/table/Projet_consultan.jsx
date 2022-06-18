@@ -7,9 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useState, useEffect } from 'react';
-import axios from "axios";
-import { URL } from "../../constant/Constant"
 import { useParams, Link } from "react-router-dom";
+import API from "../../api/index";
 
 const Projet_consultan = (props) => {
   const { Consultant,n_c } = props.data;
@@ -22,7 +21,7 @@ const Projet_consultan = (props) => {
   const parames = useParams();
 
   useEffect((prj_user) => {
-    axios.get(`${URL}/getPC/${parames?.id}`).then(function (result) {
+    API.get(`getPC/${parames?.id}`).then(function (result) {
       // console.log(result.length)
       setProjectsTable(result?.data?.projects);
       setEntreprises(result?.data?.EntrepriseNames);

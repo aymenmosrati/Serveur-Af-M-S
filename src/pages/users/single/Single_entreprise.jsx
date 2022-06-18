@@ -3,10 +3,9 @@ import Sidebar from "../../../components/sidebar/Sidebar";
 import Navbar from "../../../components/navbar/Navbar";
 // import Chart from "../../components/chart/Chart";
 import List from "../../../components/table/Projet_entreprise";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import {URL} from "../../../constant/Constant"
+import API from "../../../api/index";
 
 
 const Single_entreprise = () => {
@@ -14,12 +13,12 @@ const Single_entreprise = () => {
   const parames = useParams();
   const [Entreprise, setEntreprise] = useState([]);
   useEffect((Entreprise) => {
-    axios.get(`${URL}/getbyId_entreprise/${parames.id}`).then(function (res) {
+    API.get(`getbyId_entreprise/${parames.id}`).then(function (res) {
       setEntreprise(res.data);
       //  console.log(res.data)
     });
   }, [])
-  
+
   return (
     <div className="single">
       <Sidebar />
@@ -27,7 +26,7 @@ const Single_entreprise = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <div className="editButton">Edit</div>
+            <Link className="editButton" to={`/entreprise/update/${Entreprise?.subInfo?.id}/${parames.id}`}>Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
               {/* <img
@@ -48,7 +47,7 @@ const Single_entreprise = () => {
                 <div className="detailItem">
                   <span className="itemKey">Address:</span>
                   <span className="itemValue">
-                   {Entreprise?.subInfo?.adress}
+                    {Entreprise?.subInfo?.adress}
                   </span>
                 </div>
                 <div className="detailItem">
@@ -67,8 +66,8 @@ const Single_entreprise = () => {
           </div> */}
         </div>
         <div className="bottom">
-        <h1 className="title">Last Transactions</h1>
-          <List  data={{Entreprise : Entreprise.id , n_e:Entreprise.username}}/>
+          <h1 className="title">Last Transactions</h1>
+          <List data={{ Entreprise: Entreprise.id, n_e: Entreprise.username }} />
         </div>
       </div>
     </div>

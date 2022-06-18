@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { URL } from "../../constant/Constant"
+import API from "../../api/index";
 
 
 const Tab_prj = () => {
@@ -13,7 +12,7 @@ const Tab_prj = () => {
     let index = 0;
 
     useEffect(() => {
-        axios.get(`${URL}/getAllProjects`)
+        API.get(`getAllProjects`)
             .then((result) => {
                 setProjectsTable(result?.data?.projects);
                 setEntreprises(result?.data?.eNames);

@@ -3,10 +3,10 @@ import Sidebar from "../../../components/sidebar/Sidebar";
 import Navbar from "../../../components/navbar/Navbar";
 import { useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
-import axios from "axios";
-import { URL } from "../../../constant/Constant";
 import { useNavigate } from 'react-router-dom';
-import validator from 'validator'
+import validator from 'validator';
+import API from "../../../api/index";
+
 
 const New_Consultant = ({ title }) => {
 
@@ -90,7 +90,7 @@ const New_Consultant = ({ title }) => {
       setAlertemaildispo(true);
       return null;
     } else {
-      axios.post(`${URL}/register_consultant`, formData)
+      API.post(`register_consultant`, formData)
         .then(function (response) {
           setAlert(true);
           setFormData({
@@ -168,7 +168,7 @@ const New_Consultant = ({ title }) => {
               {
                 alerttlf === false &&
                 <div className="alert alert-danger messerr" role="alert">
-                  <b>*</b>  Phone required 6 number .
+                  <b>*</b>  Phone required 8 number .
                 </div>
               }
               {

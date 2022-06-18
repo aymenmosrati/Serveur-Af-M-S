@@ -7,12 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
 import { useState } from "react";
 import UpdateChapitre from "../../../pages/create_project/chapitre/UpdateChapitre";
 import { Button, Modal } from 'react-bootstrap';
-
+import API from "../../../api/index";
 
 const Tab_Chapitre = (props) => {
   const { Chpitres } = props.data;
@@ -32,7 +30,7 @@ const Tab_Chapitre = (props) => {
   };
   
   const deleteChapitre = () => {
-    axios.delete(`${URL}/delete_chapitre/${id_C}`)
+    API.delete(`delete_chapitre/${id_C}`)
       .then((response) => {
         window.location.reload(false)
       })
@@ -40,7 +38,7 @@ const Tab_Chapitre = (props) => {
   };
 
   const getbyidChapitre = (id) => {
-    axios.get(`${URL}/getbyId_chapitre/${id}`)
+    API.get(`getbyId_chapitre/${id}`)
       .then(function (response) {
         setup_chap(response.data);
         handleShow();

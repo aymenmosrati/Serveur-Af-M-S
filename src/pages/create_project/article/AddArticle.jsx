@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
 import { useParams } from 'react-router-dom';
+import API from "../../../api/index";
+
 
 export default function AddArticle(props) {
     const { handleClose, show } = props.data;
@@ -25,7 +25,7 @@ export default function AddArticle(props) {
             setalert(false);
             return null;
         }
-        axios.post(`${URL}/ajoute_article`, Article)
+        API.post(`ajoute_article`, Article)
             .then(function (response) {
                 setArticle({
                     Articles: "",

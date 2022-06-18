@@ -3,13 +3,20 @@ import Sidebar from "../../../components/sidebar/Sidebar";
 import Navbar from "../../../components/navbar/Navbar";
 import { useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
-import axios from "axios";
-import { URL } from "../../../constant/Constant";
 import { useNavigate } from 'react-router-dom';
+import validator from 'validator';
+import API from "../../../api/index";
+
 
 const New_Entreprise = ({ title }) => {
 
   const [alert, setAlert] = useState(true);
+  const [alertuser, setAlertuser] = useState(true);
+  const [alerttlf, setAlerttlf] = useState(true);
+  const [alertemail, setAlertemail] = useState(true);
+  const [alertemaildispo, setAlertemaildispo] = useState(true);
+  const [alertpass, setAlertpass] = useState(true);
+  const [alertadss, setAlertadss] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
     telephone: "",
@@ -34,9 +41,60 @@ const New_Entreprise = ({ title }) => {
     e.preventDefault();
     if (formData.username === "" || formData.telephone === "" || formData.email === "" || formData.password === "" || formData.adress === "") {
       setAlert(false);
+      setAlertuser(true);
+      setAlerttlf(true);
+      setAlertemail(true);
+      setAlertpass(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (formData.username.length < 3 || formData.username.length > 50) {
+      setAlertuser(false);
+      setAlert(true);
+      setAlerttlf(true);
+      setAlertemail(true);
+      setAlertpass(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (formData.telephone.length < 8 || formData.telephone.length > 8) {
+      setAlerttlf(false);
+      setAlert(true);
+      setAlertuser(true);
+      setAlertemail(true);
+      setAlertpass(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (!(validator.isEmail(formData.email))) {
+      setAlertemail(false);
+      setAlerttlf(true);
+      setAlert(true);
+      setAlertuser(true);
+      setAlertpass(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (formData.password.length < 8 || formData.password.length > 50) {
+      setAlertpass(false);
+      setAlert(true);
+      setAlertuser(true);
+      setAlerttlf(true);
+      setAlertemail(true);
+      setAlertemaildispo(true);
+      setAlertadss(true);
+      return null;
+    } else if (formData.adress.length < 3 || formData.adress.length > 30) {
+      setAlertadss(false);
+      setAlertpass(true);
+      setAlert(true);
+      setAlertuser(true);
+      setAlerttlf(true);
+      setAlertemail(true);
+      setAlertemaildispo(true);
       return null;
     } else {
-      axios.post(`${URL}/register_entreprise`, formData)
+      API.post(`register_entreprise`, formData)
         .then(function (res) {
           if (!res) {
             console.log(res);
@@ -44,7 +102,14 @@ const New_Entreprise = ({ title }) => {
             navigate('/entreprise')
             window.location.reload(false)
           }
-
+        }).catch((err) => {
+          setAlertemaildispo(false);
+          setAlert(true);
+          setAlertuser(true);
+          setAlerttlf(true);
+          setAlertemail(true);
+          setAlertpass(true);
+          setAlertadss(true);
         })
 
     }
@@ -104,10 +169,48 @@ const New_Entreprise = ({ title }) => {
               {
                 alert === false &&
                 <div className="alert alert-danger messerr" role="alert">
-                  <b>*</b>  : required fields
+                  <b>*</b>  : Required fields
                 </div>
               }
-              <Button onClick={handelClick}>Send</Button>
+              {
+                alertuser === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  UserName required min 3 caracter and max 50 caracter .
+                </div>
+              }
+              {
+                alerttlf === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  Phone required 8 number .
+                </div>
+              }
+              {
+                alertemail === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  is not Email .
+                </div>
+              }
+              {
+                alertemaildispo === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  This email is used .
+                </div>
+              }
+              {
+                alertpass === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  Password required minimum 8 caracter and maximum 50 caracter  .
+                </div>
+              }
+              {
+                alertadss === false &&
+                <div className="alert alert-danger messerr" role="alert">
+                  <b>*</b>  Adress required minimum 3 caracter and maximum 30 caracter  .
+                </div>
+              }
+              <div>
+                <Button onClick={handelClick}>Send</Button>
+              </div>
             </form>
           </div>
         </div>

@@ -1,10 +1,8 @@
 import "./datatable.scss";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { URL } from "../../constant/Constant"
 import { useState } from "react"
 import { Button, Modal } from 'react-bootstrap';
-
+import API from "../../api/index";
 
 const Datatable_consultant = (props) => {
 
@@ -24,9 +22,8 @@ const Datatable_consultant = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-
   const deleteConsultant = () => {
-    axios.delete(`${URL}/delete_user/${id_C}`)
+    API.delete(`/delete_user/${id_C}`)
       .then((response) => {
         window.location.reload(false)
       })

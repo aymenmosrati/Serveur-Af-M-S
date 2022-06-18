@@ -2,8 +2,6 @@ import "./list.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 import { useState, useEffect } from 'react';
-import axios from "axios";
-import { URL } from "../../constant/Constant";
 import Form from 'react-bootstrap/Form'
 import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
@@ -16,6 +14,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useParams,useNavigate } from "react-router-dom";
 import { Button, Modal } from 'react-bootstrap';
+import API from "../../api/index";
 
 
 const Add_Prj = () => {
@@ -53,7 +52,7 @@ const Add_Prj = () => {
             setAlert(true);
             return null;
         } else {
-            axios.post(`${URL}/ajoute_projet`, item)
+            API.post(`ajoute_projet`, item)
                 .then(function (response) {
                     navigate('/projets')
                     window.location.reload(false)
@@ -62,16 +61,14 @@ const Add_Prj = () => {
         e.preventDefault();
     };
 
-
     const [normes, setNormes] = useState([]);
-
     const [users, setUsers] = useState([]);
     const [consultant, setConsultant] = useState([]);
     useEffect(() => {
-        axios.get(`${URL}/getAllUserConsultant`).then(function (res) {
+        API.get(`getAllUserConsultant`).then(function (res) {
             setUsers(res.data.listId);
             setConsultant(res.data.users);
-            axios.get(`${URL}/getAll_norme`).then(function (res) {
+            API.get(`getAll_norme`).then(function (res) {
                 //  console.log(res.data);
                 setNormes(res.data);
                 setBl(true);

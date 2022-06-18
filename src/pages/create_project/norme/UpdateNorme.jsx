@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap';
-import axios from "axios";
-import { URL } from "../../../constant/Constant";
+import API from "../../../api/index";
+
 
 export default function ModalViewUpdate(props) {
     const { norme_update, handleClose, show, setup_nor } = props.data;
@@ -21,7 +21,7 @@ export default function ModalViewUpdate(props) {
 
     useEffect(() => {
         if (!!norme_update?.id) {
-            axios.get(`${URL}/getbyId_norme/${norme_update.id}`)
+            API.get(`getbyId_norme/${norme_update.id}`)
                 .then(function (response) {
                     setFormData(
                         {
@@ -40,7 +40,7 @@ export default function ModalViewUpdate(props) {
             return null;
         }
         // console.log(formData);
-        axios.patch(`${URL}/update_norme/${norme_update.id}`, formData)
+        API.patch(`update_norme/${norme_update.id}`, formData)
             .then(function (response) {
                 setAlert(true);
                 setFormData({

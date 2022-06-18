@@ -3,8 +3,6 @@ import Sidebar from "../../../components/sidebar/Sidebar"
 import Navbar from "../../../components/navbar/Navbar"
 import Datatable from "../../../components/datatable/Datatable_consultant"
 import { useState, useEffect } from 'react';
-import axios from "axios";
-import {URL} from "../../../constant/Constant"
 import API from "../../../api/index";
 
 const List_consultant = () => {
@@ -24,7 +22,7 @@ const List_consultant = () => {
     <div className="list">
       <Sidebar />
       <div className="listContainer">
-        <Navbar />
+        <Navbar/>
         <Datatable Key={users.id} data={{ users:users ,consultant:consultant, setUsers: setUsers }} />
       </div>
     </div>

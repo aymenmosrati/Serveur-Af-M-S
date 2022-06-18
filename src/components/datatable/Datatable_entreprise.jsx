@@ -1,10 +1,9 @@
 import "./datatable.scss";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { URL } from "../../constant/Constant"
 import { useState } from "react"
 import { Button, Modal } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
+import API from "../../api/index";
 
 const Datatable_entreprise = (props) => {
 
@@ -23,7 +22,7 @@ const Datatable_entreprise = (props) => {
   };
 
   const deleteEntreprise = () => {
-    axios.delete(`${URL}/delete_user/${id_E}`)
+    API.delete(`delete_user/${id_E}`)
       .then((response) => {
         window.location.reload(false)
       })

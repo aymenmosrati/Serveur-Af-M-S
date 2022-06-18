@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
 import { useParams } from 'react-router-dom';
+import API from "../../../api/index";
 
 export default function AddQuestion(props) {
     const { handleClose, show } = props.data;
@@ -25,7 +24,7 @@ export default function AddQuestion(props) {
             setalert(false);
             return null;
         }
-        axios.post(`${URL}/ajoute_question`, Question)
+        API.post(`ajoute_question`, Question)
             .then(function (response) {
                 setQuestion({
                     Questions: "",

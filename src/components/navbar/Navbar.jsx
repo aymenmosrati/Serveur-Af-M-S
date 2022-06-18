@@ -7,17 +7,71 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import React, { useState, useContext, useEffect } from 'react'
+import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
+import API from "../../api/index";
+import { Link } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
 
-const Navbar = () => {
+const Navbar = (props) => {
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [usersE, setUsersE] = useState([]);
+  const [usersC, setUsersC] = useState([]);
+  const [entreprise, setEntreprise] = useState([]);
+  const [consultant, setConsultant] = useState([]);
+  useEffect((users) => {
+    API.get(`getAllUserEntreprise`).then(function (res) {
+      //  console.log(res.data);
+      setUsersE(res.data.listId);
+      setEntreprise(res.data.users)
+    });
+
+    API.get(`getAllUserConsultant`).then(function (res) {
+      setUsersC(res.data.listId);
+      setConsultant(res.data.users);
+    });
+  }, [])
+
+  const clickViewDetail = (id, role) => {
+    console.log(id,role);
+    API.get(`getId/${id}`,role).then(function (res) {
+      console.log(res.data);
+    });
+  };
+
+  const [open, setOpen] = useState(false);
+  const [id_C, setId_C] = useState();
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setId_C(id);
+  };
+  const handleClickClose = () => {
+    setOpen(false);
+  };
+  const deleteConsultant = () => {
+    API.delete(`delete_user/${id_C}`)
+      .then((response) => {
+        window.location.reload(false)
+      })
+      .catch((error) => { 
+        // console.log(error)
+       })
+  };
+
+  let index = 0;
+
   const { dispatch } = useContext(DarkModeContext);
-  if (localStorage.getItem("currentUser")){
-  const curentUser = JSON.parse(localStorage.getItem("curentUser"));
+  if (localStorage.getItem("currentUser")) {
+    const curentUser = JSON.parse(localStorage.getItem("curentUser"));
   }
   return (
     <div className="navbar">
       <div className="wrapper">
-        <div className="search">
+        <div className="search" onClick={handleShow}>
           <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon />
         </div>
@@ -55,6 +109,124 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      <Modal
+        show={show}
+        onHide={(e) => { handleClose(e) }}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">
+            Search
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <InputGroup className="mb-3">
+            <FormControl
+              placeholder="Search With Name Consultant or Name Entreprise"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              onChange={(event) => {
+                setSearchTerm(event.target.value);
+              }}
+            />
+          </InputGroup>
+
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name Entreprise or Consultant</th>
+                <th>Email</th>
+                <th> Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usersE.length > 0 ? (
+                usersE.filter((user) => {
+                  if (searchTerm == "") {
+                    return null;
+                  } else if (user.username.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return user;
+                  }
+                }).map((user, Key) => {
+                  return (
+                    <tr>
+                      <td key={Key}>
+                        {user.username}
+                      </td>
+                      <td key={Key}>
+                        {user.email}
+                      </td>
+                      <td key={Key}>
+                        <Dropdown>
+                          <Dropdown.Toggle variant="Primary" id="dropdown-basic">
+                            Action
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                            <Dropdown.Item onClick={() => clickViewDetail(user?.id, "entreprise")}>View Entreprise</Dropdown.Item>
+                            <Dropdown.Item onClick={() => handleClickOpen(user.id)}>Delete</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </td>
+                      <span hidden>{index++}</span>
+                    </tr>
+                  )
+                })
+              ) : <tr><td colSpan='3' className="text-center">No Entreprise found</td></tr>}
+              {usersC.length > 0 ? (
+                usersC.filter((user) => {
+                  if (searchTerm == "") {
+                    return null;
+                  } else if (user.username.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return user;
+                  }
+                }).map((user, Key) => {
+                  return (
+                    <tr>
+                      <td key={Key}>
+                        {user.username}
+                      </td>
+                      <td key={Key}>
+                        {user.email}
+                      </td>
+                      <td key={Key}>
+                        <Dropdown>
+                          <Dropdown.Toggle variant="Primary" id="dropdown-basic">
+                            Action
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                          <Dropdown.Item onClick={() => clickViewDetail(user?.id, "consultant")}>View Consultant</Dropdown.Item>
+                            <Dropdown.Item onClick={() => handleClickOpen(user.id)}>Delete</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        {/* <Link to={`/user_consultant/${consultant[index]?.id}`} style={{ textDecoration: "none" }}>
+                          <div className="viewButton">Consultant Detail {entreprise.id}</div>
+                        </Link> */}
+                      </td>
+                      
+                    </tr>
+                  )
+                })
+              ) : <tr><td colSpan='3' className="text-center">No Consultant found</td></tr>}
+            </tbody>
+          </table>
+        </Modal.Body>
+      </Modal>
+      <Modal show={open} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><div className="alert alert-danger">are you sure you want to delete this?</div></Modal.Body>
+        <Modal.Footer>
+          <Button variant="default" onClick={handleClickClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => deleteConsultant()}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

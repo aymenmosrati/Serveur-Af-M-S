@@ -4,9 +4,8 @@ import Navbar from "../../../components/navbar/Navbar"
 import Table_Question from "../../../components/create_prj/question/Tab_Question"
 import { useState, useEffect } from 'react';
 import { Link,useParams } from "react-router-dom";
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
 import AddQuestion from "./AddQuestion"
+import API from "../../../api/index";
 
 const List_question = () => {
 
@@ -17,7 +16,7 @@ const List_question = () => {
   const parames = useParams();
 
   useEffect((Questions) => {
-    axios.get(`${URL}/getquestion_byIdarticle/${parames.id}`).then(function (res) {
+    API.get(`getquestion_byIdarticle/${parames.id}`).then(function (res) {
       // console.log(res.data);
       setQuestions(res.data);
     });

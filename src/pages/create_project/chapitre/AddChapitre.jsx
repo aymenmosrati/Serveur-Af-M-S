@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
 import { useParams } from 'react-router-dom';
+import API from "../../../api/index";
 
 
 export default function AddChapitre(props) {
@@ -27,7 +26,7 @@ export default function AddChapitre(props) {
             setalert(false);
             return null;  
         }
-        axios.post(`${URL}/ajoute_chapitres`, Chpitre)
+        API.post(`ajoute_chapitres`, Chpitre)
             .then(function (response) {
                 setChpitre({
                     Chapitres: "",

@@ -3,9 +3,9 @@ import Sidebar from "../../../components/sidebar/Sidebar"
 import Navbar from "../../../components/navbar/Navbar"
 import Table_Norme from "../../../components/create_prj/norme/Tab_Norme"
 import { useState, useEffect } from 'react';
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
 import AddNorme from "./AddNorme"
+import API from "../../../api/index";
+
 
 const List_norme = () => {
 
@@ -15,7 +15,7 @@ const List_norme = () => {
   const handleShow = () => setShow(true);
 
   useEffect((normes) => {
-    axios.get(`${URL}/getAll_norme`).then(function (res) {
+    API.get(`getAll_norme`).then(function (res) {
       //  console.log(res.data);
       setNormes(res.data);
     });

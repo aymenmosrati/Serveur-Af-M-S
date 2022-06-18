@@ -7,12 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
 import UpdateNorme from "../../../pages/create_project/norme/UpdateNorme";
 import { useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
-
+import API from "../../../api/index";
 
 const Tab_Norme = (props) => {
   const { normes } = props.data;
@@ -32,14 +30,14 @@ const Tab_Norme = (props) => {
   };
 
   const deleteNorme = () => {
-    axios.delete(`${URL}/delete_norme/${id_N}`)
+    API.delete(`delete_norme/${id_N}`)
       .then((response) => {
         window.location.reload(false)
       })
       .catch((error) => { console.log(error) })
   };
   const getbyidNorme = (id) => {
-    axios.get(`${URL}/getbyId_norme/${id}`)
+    API.get(`getbyId_norme/${id}`)
       .then(function (response) {
         // console.log(response)
         setup_nor(response.data);

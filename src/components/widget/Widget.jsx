@@ -6,8 +6,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import { URL } from "../../constant/Constant"
-import axios from "axios";
+import API from "../../api/index";
 
 const Widget = ({ type }) => {
   let data;
@@ -21,19 +20,19 @@ const Widget = ({ type }) => {
 const [dataLoaded, setDataLoaded]=useState(false);
 
   useEffect(() => {
-    axios.get(`${URL}/countAll_consultant`).then(function (res) {
+    API.get(`countAll_consultant`).then(function (res) {
       //  console.log(res.data);
       setcount_C(res.data);
     });
-    axios.get(`${URL}/countAll_entreprise`).then(function (res) {
+    API.get(`countAll_entreprise`).then(function (res) {
       //  console.log(res.data);
       setcount_E(res.data);
     });
-    axios.get(`${URL}/countAll_norme`).then(function (res) {
+    API.get(`countAll_norme`).then(function (res) {
       //  console.log(res.data);
       setcount_N(res.data);
     });
-    axios.get(`${URL}/countAll_project`).then(function (res) {
+    API.get(`countAll_project`).then(function (res) {
       //  console.log(res.data);
       setcount_P(res.data);
     });

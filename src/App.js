@@ -13,6 +13,8 @@ import New_Consultant from "./pages/users/new/New_Consultant";
 import New_Entreprise from "./pages/users/new/New_Entreprise";
 import Single_consultant from "./pages/users/single/Single_consultant";
 import Single_entreprise from "./pages/users/single/Single_entreprise";
+import Update_C from "./pages/users/update/Update_C";
+import Update_E from "./pages/users/update/Update_E";
 import Norme from "./pages/create_project/norme/Norme";
 import Chapitre from "./pages/create_project/chapitre/Chapitre";
 import Article from "./pages/create_project/article/Article";
@@ -42,6 +44,8 @@ function App() {
               path="consultant/new"
               element={<New_Consultant title="Add New Consultant" />}
             />
+            <Route path="consultant/update/:id_U/:id_C" element={<Update_C />} />
+            <Route path="entreprise/update/:id_U/:id_E" element={<Update_E />} />
             <Route path="entreprise" element={<Entreprise />} />
             <Route
               path="entreprise/new"
@@ -66,7 +70,7 @@ function App() {
               exact
               element={<Single_project />}
             />
-          
+         {/* let dat = [usec.l, usere.l] */}
 
           {/* <Route path="/projet/:id/:n_c/:n_e/:d_d/:d_f/e" exact element={<SinglePrjE />} /> */}
         </Routes>

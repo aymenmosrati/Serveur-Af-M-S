@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
-import axios from "axios";
-import { URL } from "../../../constant/Constant"
+import API from "../../../api/index";
 
 
 export default function AddNorme(props) {
     const { handleClose, show } = props.data;
-    const [alert, setalert ] = useState(true)
+    const [alert, setalert] = useState(true)
+    // const [alertnorm, setalertnorm] = useState(true)
     const [Norme, setNorme] = useState({
         norme: "",
     });
@@ -22,15 +22,17 @@ export default function AddNorme(props) {
         if (Norme.norme == "") {
             setalert(false);
             return null;
+        }else 
+        {
+            API.post(`ajoute_norme`, Norme)
+                .then(function (response) {
+                    setNorme({
+                        norme: "",
+                    });
+                    handleClose();
+                    window.location.reload(false)
+                })
         }
-        axios.post(`${URL}/ajoute_norme`, Norme)
-            .then(function (response) {
-                setNorme({
-                    norme: "",
-                });
-                handleClose();
-                window.location.reload(false)
-            })
     };
 
     return (
@@ -49,7 +51,12 @@ export default function AddNorme(props) {
                         <div className="alert alert-danger" role="alert">
                             You Must Fill Text Fields.
                         </div>
-                    }
+                    } 
+                    {/* {alertnorm === false &&
+                        <div className="alert alert-danger" role="alert">
+                            You Must Fill Text minimom 3 champ reaquired.
+                        </div>
+                    } */}
                     <form >
                         <div className="form-group">
                             <input

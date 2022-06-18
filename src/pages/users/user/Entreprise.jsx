@@ -3,15 +3,15 @@ import Sidebar from "../../../components/sidebar/Sidebar"
 import Navbar from "../../../components/navbar/Navbar"
 import Datatable from "../../../components/datatable/Datatable_entreprise"
 import { useState, useEffect } from 'react';
-import axios from "axios";
-import {URL} from "../../../constant/Constant"
+import API from "../../../api/index";
+
 
 const List_entreprise = () => {
 
   const [users, setUsers] = useState([]);
   const [entreprise, setEntreprise ] = useState([]);
   useEffect((users) => {
-    axios.get(`${URL}/getAllUserEntreprise`).then(function (res) { 
+    API.get(`getAllUserEntreprise`).then(function (res) { 
       //  console.log(res.data);
       setUsers(res.data.listId);
       setEntreprise(res.data.users)
@@ -22,7 +22,7 @@ const List_entreprise = () => {
     <div className="list">
       <Sidebar />
       <div className="listContainer">
-        <Navbar />
+        <Navbar Key={users.id} dataEntreprise={{ users: users }}/>
         <Datatable Key={users.id} data={{ users: users, setUsers: setUsers, entreprise:entreprise }} />
       </div>
     </div>

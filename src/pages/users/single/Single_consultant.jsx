@@ -4,9 +4,9 @@ import Navbar from "../../../components/navbar/Navbar";
 // import Chart from "../../components/chart/Chart";
 import List from "../../../components/table/Projet_consultan";
 import { useState, useEffect } from 'react';
-import { URL } from "../../../constant/Constant"
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import API from "../../../api/index";
+
 
 const Single_consultant = () => {
 
@@ -14,7 +14,7 @@ const Single_consultant = () => {
   const [Consultant, setConsultant] = useState([]);
 
   useEffect((Consultant) => {
-    axios.get(`${URL}/getbyId_consultant/${parames.id}`).then(function (res) {
+    API.get(`getbyId_consultant/${parames.id}`).then(function (res) {
       setConsultant(res.data);
     });
   }, [])
@@ -26,7 +26,7 @@ const Single_consultant = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <div className="editButton">Edit</div>
+            <Link className="editButton" to={`/consultant/update/${Consultant.id}/${parames.id}`}>Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
               {/* <img
