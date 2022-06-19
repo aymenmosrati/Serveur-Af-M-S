@@ -10,7 +10,7 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import React, { useState, useContext, useEffect } from 'react'
 import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
 import API from "../../api/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const Navbar = (props) => {
@@ -36,10 +36,30 @@ const Navbar = (props) => {
     });
   }, [])
 
+  const navigate = useNavigate();
+
   const clickViewDetail = (id, role) => {
-    console.log(id,role);
-    API.get(`getId/${id}`,role).then(function (res) {
-      console.log(res.data);
+    // console.log(id,role);
+    if (role == "consultant") {
+      // console.log("consultant");
+      API.get(`getId/${id}/${role}`).then(function (res) {
+        // console.log(res.data);
+        navigate(`/user_consultant/${res.data.id}`)
+      });
+    } else if (role == "entreprise") {
+      // console.log("entreprise");
+      API.get(`getId/${id}/${role}`).then(function (res) {
+        // console.log(res.data);
+        navigate(`/user_entreprise/${res.data.id}`)
+      });
+    }
+  };
+
+  const ClickAddPrj = (id, role, name) => {
+    // console.log(id,role);
+    API.get(`getId/${id}/${role}`).then(function (res) {
+      console.log(res.data, name);
+      navigate(`/ajoute_projet/${res.data.id}/${name}`)
     });
   };
 
@@ -57,9 +77,9 @@ const Navbar = (props) => {
       .then((response) => {
         window.location.reload(false)
       })
-      .catch((error) => { 
+      .catch((error) => {
         // console.log(error)
-       })
+      })
   };
 
   let index = 0;
@@ -72,7 +92,7 @@ const Navbar = (props) => {
     <div className="navbar">
       <div className="wrapper">
         <div className="search" onClick={handleShow}>
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." disabled/>
           <SearchOutlinedIcon />
         </div>
         <div className="items">
@@ -165,6 +185,10 @@ const Navbar = (props) => {
                           </Dropdown.Toggle>
                           <Dropdown.Menu>
                             <Dropdown.Item onClick={() => clickViewDetail(user?.id, "entreprise")}>View Entreprise</Dropdown.Item>
+                            <Dropdown.Item onClick={() => ClickAddPrj(user?.id, "entreprise", user?.username)}>Add Project</Dropdown.Item>
+                            {/* <Link to={`/ajoute_projet/${entreprise[index]?.id}/${user?.username}`} >
+                              <div className="ajoutButton"><AddIcon /></div>
+                            </Link> */}
                             <Dropdown.Item onClick={() => handleClickOpen(user.id)}>Delete</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
@@ -196,7 +220,7 @@ const Navbar = (props) => {
                             Action
                           </Dropdown.Toggle>
                           <Dropdown.Menu>
-                          <Dropdown.Item onClick={() => clickViewDetail(user?.id, "consultant")}>View Consultant</Dropdown.Item>
+                            <Dropdown.Item onClick={() => clickViewDetail(user?.id, "consultant")}>View Consultant</Dropdown.Item>
                             <Dropdown.Item onClick={() => handleClickOpen(user.id)}>Delete</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
@@ -204,7 +228,7 @@ const Navbar = (props) => {
                           <div className="viewButton">Consultant Detail {entreprise.id}</div>
                         </Link> */}
                       </td>
-                      
+
                     </tr>
                   )
                 })
