@@ -44,9 +44,7 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    console.log("====================================");
-    console.log(email, password, password.length);
-    console.log("====================================");
+    
     if (email.includes(" ") || email.length === 0) {
       setEmailError(true);
       console.log("email is null");
@@ -75,7 +73,7 @@ export default function SignIn() {
           const token = res?.data?.token;
           localStorage.setItem("curentUser", JSON.stringify({ user, token }));
           navigate("/");
-          //window.location.reload(false);
+            window.location.reload(false);
         }
       })
       .catch((err) => {
