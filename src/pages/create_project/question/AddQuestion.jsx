@@ -20,6 +20,7 @@ export default function AddQuestion(props) {
 
     const handelClick = (e) => {
         e.preventDefault();
+        // || Question.Questions.includes("  ")
         if (Question.Questions == "") {
             setalert(false);
             return null;

@@ -22,6 +22,7 @@ export default function AddChapitre(props) {
     const handelClick = (e) => {
         // console.log(Chpitre);
         e.preventDefault();
+        // || Chpitre.Chapitres.includes("  ")
         if (Chpitre.Chapitres == "") {
             setalert(false);
             return null;  

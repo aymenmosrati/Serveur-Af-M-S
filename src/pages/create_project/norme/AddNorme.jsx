@@ -19,7 +19,8 @@ export default function AddNorme(props) {
 
     const handelClick = (e) => {
         e.preventDefault();
-        if (Norme.norme == "") {
+        // || Norme.norme.includes("  ")
+        if (Norme.norme == "" || Norme.norme.includes("  ")) {
             setalert(false);
             return null;
         }else 

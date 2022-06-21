@@ -21,7 +21,8 @@ export default function AddArticle(props) {
 
     const handelClick = (e) => {
         e.preventDefault();
-        if (Article.Articles == "") {
+        // || Article.Articles.includes("  ")
+        if (Article.Articles == "" ) {
             setalert(false);
             return null;
         }

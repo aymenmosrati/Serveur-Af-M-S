@@ -54,7 +54,8 @@ const New_Entreprise = ({ title }) => {
 
     const handelClick = (e) => {
         e.preventDefault();
-        if (formData.username === "" || formData.telephone === "" || formData.email === "" || formData.password === "" || formData.adress === "") {
+        if (formData.username === "" || formData.telephone === "" || formData.email === "" || formData.password === "" || formData.adress === ""
+        || formData.username.includes("  ") || formData.email.includes("  ") || formData.password.includes("  ") || formData.adress.includes("  ")) {
             setAlert(false);
             setAlertuser(true);
             setAlerttlf(true);

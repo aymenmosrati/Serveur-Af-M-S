@@ -35,7 +35,7 @@ export default function ModalViewUpdate(props) {
     const handelClick = (e, id) => {
         e.preventDefault();
 
-        if (formData.norme === "") {
+        if (formData.norme === "" || formData.norme.includes("  ")) {
             setAlert(false);
             return null;
         }
@@ -69,7 +69,7 @@ export default function ModalViewUpdate(props) {
                 <Modal.Body>
                     {alert === false &&
                         <div className="alert alert-danger" role="alert">
-                            You Must Fill Text Fields.
+                            You Must Fill Text Fields or 2 Espace.
                         </div>
                     }
                     <form >
