@@ -29,6 +29,10 @@ import SignIn from "./components/auth/SignIn";
 import PadeNotFound from "./pages/pageNotFound/PageNotFound";
 import API from "./api";
 import { UserContext } from "./context/userContext";
+import Notifications from "./pages/traveau en cour/Notifications";
+import Settings from "./pages/traveau en cour/Settings";
+import Profile from "./pages/traveau en cour/Profile";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -63,6 +67,21 @@ function App() {
               path="consultant"
               exact
               element={curentUser ? <Consultant /> : <Navigate to="/auth" />}
+            />
+            <Route
+              path="notifications"
+              exact
+              element={curentUser ? <Notifications /> : <Navigate to="/auth" />}
+            />
+            <Route
+              path="profile"
+              exact
+              element={curentUser ? <Profile /> : <Navigate to="/auth" />}
+            />
+            <Route
+              path="settings"
+              exact
+              element={curentUser ? <Settings /> : <Navigate to="/auth" />}
             />
             <Route
               path="consultant/new"
